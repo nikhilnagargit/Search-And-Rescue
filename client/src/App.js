@@ -17,12 +17,11 @@ function App() {
     <Fragment>
       <Router>
         <Switch>
+          <Route exact path='/' component={Landing} />
           <Fragment>
-            <Route exact path='/' component={Landing}></Route>
-
             <div className='app-body'>
-              <Navbar className='navbar'></Navbar>
-              <Sidebar className='sidebar'></Sidebar>
+              <Navbar className='/navbar'></Navbar>
+              <Sidebar className='/sidebar'></Sidebar>
               <section className='main'>
                 <Route path='/home' component={Home}></Route>
                 <Route exact path='/report' component={Report}></Route>

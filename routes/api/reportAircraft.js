@@ -21,6 +21,8 @@ router.post('/', async (req, res) => {
     weather,
     description,
     altitude,
+    title,
+    category,
   } = req.body;
   if (latitude) {
     const plane = new Airplane({
@@ -31,6 +33,8 @@ router.post('/', async (req, res) => {
       direction,
       weather,
       altitude,
+      title,
+      category,
     });
     await plane.save();
     console.log('One airplane reported in db');

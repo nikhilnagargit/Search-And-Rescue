@@ -26,7 +26,7 @@ const Landing = () => {
         <img className='main-left' src={intro} alt='' />
 
         <div className='main-right'>
-          <p className='quote'>
+          <div className='quote'>
             <img src={startquote} alt='' />
             <h3>
               The life expectancy of an injured survivor decreases as much as 80
@@ -34,7 +34,7 @@ const Landing = () => {
               of uninjured survivors rapidly diminishes after the first 3 days
             </h3>
             <img src={endquote} alt='' />
-          </p>
+          </div>
 
           <Link to='/home' className='link'>
             <div className='button'>

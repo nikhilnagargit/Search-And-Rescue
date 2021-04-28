@@ -9,6 +9,8 @@ const airplaneSchema = new Schema({
   velocity: String,
   description: String,
   altitude: String,
+  category: Number,
+  title: String,
 });
 
 module.exports = mongoose.model('Airplane', airplaneSchema);

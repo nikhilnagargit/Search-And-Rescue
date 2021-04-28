@@ -1,6 +1,13 @@
 import React from 'react';
 import './ReportForm.scss';
-import { TextField, Button } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from '@material-ui/core';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -12,6 +19,8 @@ const initialFormData = {
   weather: '',
   description: '',
   altitude: '',
+  title: '',
+  category: '',
 };
 
 const ReportForm = () => {
@@ -49,6 +58,32 @@ const ReportForm = () => {
           submitDataToAPI(e);
         }}
       >
+        <div>
+          <TextField
+            value={formData.title}
+            name='title'
+            label='Title'
+            onChange={(e) => onInputFieldChange(e)}
+          />
+        </div>
+        <div>
+          <FormControl>
+            <InputLabel id='category'>Category</InputLabel>
+
+            <Select
+              name='category'
+              labelId='category'
+              value={formData.category}
+              onChange={(e) => {
+                onInputFieldChange(e);
+              }}
+            >
+              <MenuItem value={1}>Category A</MenuItem>
+              <MenuItem value={2}>Category B</MenuItem>
+              <MenuItem value={3}>Category C</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
         <div className='position'>
           <TextField
             className='lat'

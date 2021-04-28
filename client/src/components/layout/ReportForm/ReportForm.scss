@@ -7,8 +7,7 @@
   .reportForm {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+
     .position {
       display: flex;
       justify-content: space-between;
@@ -21,7 +20,7 @@
     }
     div {
       width: 100%;
-      text-align: center;
+
       button {
         margin: 1rem;
       }

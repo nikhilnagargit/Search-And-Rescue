@@ -5,12 +5,23 @@
   flex-wrap: wrap;
 
   .report-form {
-    margin: 1rem;
+    margin: 2rem;
   }
 
-  .rescue-img {
-    width: 40%;
-    height: auto;
-    margin: 1rem;
+  .sidecontent {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .rescue-img {
+      margin: 2rem;
+      width: 25vw;
+      height: auto;
+    }
+    .recent-reports {
+      width: 100%;
+    }
   }
 }
