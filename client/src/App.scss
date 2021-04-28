@@ -1,0 +1,30 @@
+* {
+  font-family: 'Calibri', 'Trebuchet MS', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-body {
+  display: grid;
+  grid-template-rows: 0.05fr 0.95fr;
+  grid-template-columns: 0.18fr 0.82fr;
+  grid-template-areas:
+    'sidebar navbar'
+    'sidebar main';
+
+  .navbar {
+    grid-area: navbar;
+  }
+  .sidebar {
+    grid-area: sidebar;
+  }
+  .main {
+    grid-area: main;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .app-body {
+    grid-template-columns: 0.05fr 1fr;
+  }
+}
