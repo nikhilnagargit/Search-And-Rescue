@@ -6,12 +6,12 @@ const Navbar = () => {
   return (
     <Fragment>
       <nav>
-        <div class='left-nav-section'>
+        <div className='left-nav-section'>
           <img className='clockicon' src={clock} alt='' />
         </div>
 
-        <ul class='right-nav-section'>
-          <li class='searchbar'>
+        <ul className='right-nav-section'>
+          <li className='searchbar'>
             <i className='fa fa-search'></i>
             <span>Search</span>
           </li>
@@ -20,7 +20,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link to='/'>
-              <i class='fas fa-user-astronaut fa-lg'></i>
+              <i className='fas fa-user-astronaut fa-lg'></i>
             </Link>
           </li>
         </ul>

@@ -1,8 +1,11 @@
+$base-color: red;
+
 .sidebar {
   height: 100vh;
   background-color: #02475e;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   .sidebar-brand {
     justify-content: center;
@@ -21,12 +24,11 @@
       margin: 5px;
       height: auto;
     }
-    .burger {
+    i {
       margin: 6px;
       display: none;
-      color: #6ac1e9;
+      color: #b8b5ff;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      display: none;
     }
   }
 
@@ -75,7 +77,7 @@
       img {
         display: none;
       }
-      .burger {
+      i {
         display: block;
       }
     }
@@ -101,7 +103,7 @@
       img {
         display: none;
       }
-      .burger {
+      i {
         display: block;
       }
     }

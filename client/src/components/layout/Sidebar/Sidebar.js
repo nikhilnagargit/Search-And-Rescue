@@ -9,69 +9,72 @@ const Sidebar = () => {
   return (
     <Fragment>
       <div className={sidebarVisible ? 'sidebar' : 'sidebar expand'}>
-        <div class='sidebar-brand'>
+        <div className='sidebar-brand'>
           <img src={saricon} alt='' />
+
+          <p> Search And Rescue</p>
           <i
             onClick={() => {
               setsidebarVisible(!sidebarVisible);
             }}
-            class='fas fa-hamburger fa-lg burger'
+            className={
+              sidebarVisible ? 'fas fa-bars fa-lg' : 'fas fa-times fa-lg'
+            }
           ></i>
-          <p> Search And Rescue</p>
         </div>
-        <div class='sidebar-menu'>
-          <div class='section'>
+        <div className='sidebar-menu'>
+          <div className='section'>
             <p className='section-header'>Main</p>
             <ul>
               <Link to='/home'>
                 <li>
-                  <i class='fas fa-home fa-lg'></i>
+                  <i className='fas fa-home fa-lg'></i>
                   <p>Home</p>
                 </li>
               </Link>
               <Link to='/report'>
                 <li>
-                  <i class='fas fa-fighter-jet fa-lg'></i>
+                  <i className='fas fa-fighter-jet fa-lg'></i>
                   <p>Report</p>
                 </li>
               </Link>
             </ul>
           </div>
-          <div class='section'>
+          <div className='section'>
             <p className='section-header'>Search And Rescue</p>
             <ul>
               <Link to='/search-area'>
                 <li>
-                  <i class='fas fa-search-location fa-lg'></i>
+                  <i className='fas fa-search-location fa-lg'></i>
                   <p>Search Area</p>
                 </li>
               </Link>
               <Link to='/search-pattern'>
                 <li>
-                  <i class='fas fa-quidditch fa-lg'></i>
+                  <i className='fas fa-quidditch fa-lg'></i>
                   <p>Sweep Pattern</p>
                 </li>
               </Link>
               <Link to='/results'>
                 <li>
-                  <i class='fas fa-poll fa-lg'></i>
+                  <i className='fas fa-poll fa-lg'></i>
                   <p>Results</p>
                 </li>
               </Link>
             </ul>
           </div>
-          <div class='section'>
+          <div className='section'>
             <p className='section-header'>Extras</p>
             <ul>
               <Link to='/alert'>
                 <li>
-                  <i class='fas fa-exclamation-triangle fa-lg'></i>
+                  <i className='fas fa-exclamation-triangle fa-lg'></i>
                   <p>Alert</p>
                 </li>
               </Link>
               <Link to='/aboutUs'>
                 <li>
-                  <i class='fas fa-users fa-lg'></i>
+                  <i className='fas fa-users fa-lg'></i>
                   <p>About us</p>
                 </li>
               </Link>

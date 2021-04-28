@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //connect the database
 connectDB();

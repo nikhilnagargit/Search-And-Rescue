@@ -6,7 +6,7 @@
 
 .app-body {
   display: grid;
-  grid-template-rows: 0.05fr 0.95fr;
+  grid-template-rows: 0.05fr 1fr;
   grid-template-columns: 0.18fr 0.82fr;
   grid-template-areas:
     'sidebar navbar'
@@ -20,6 +20,8 @@
   }
   .main {
     grid-area: main;
+    border: 2px solid #b8b5ff;
+    margin: 1rem;
   }
 }
 

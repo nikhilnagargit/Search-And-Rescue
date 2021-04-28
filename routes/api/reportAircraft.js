@@ -13,13 +13,30 @@ router.get('/', (req, res) => {
 //@desc report the missing aircraft
 //@access Private
 router.post('/', async (req, res) => {
-  const { last_position, velocity, direction, weather } = req.body;
-  if (last_position && velocity && direction && weather) {
-    const plane = new Airplane({ last_position, velocity, direction, weather });
+  const {
+    latitude,
+    longitude,
+    velocity,
+    direction,
+    weather,
+    description,
+    altitude,
+  } = req.body;
+  if (latitude) {
+    const plane = new Airplane({
+      latitude,
+      longitude,
+      description,
+      velocity,
+      direction,
+      weather,
+      altitude,
+    });
     await plane.save();
-    res.send(plane);
+    console.log('One airplane reported in db');
+    res.status(201).json(plane);
   } else {
-    res.send("Make sure each field has a valid value");
+    res.status(400).json({ err: 'at least input latitude field.' });
   }
 });
 

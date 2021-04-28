@@ -17,25 +17,27 @@ function App() {
     <Fragment>
       <Router>
         <Switch>
-          <Route exact path='/' component={Landing}></Route>
+          <Fragment>
+            <Route exact path='/' component={Landing}></Route>
 
-          <div class='app-body'>
-            <Navbar className='navbar'></Navbar>
-            <Sidebar className='sidebar'></Sidebar>
-            <section className='main'>
-              <Route exact path='/home' component={Home}></Route>
-              <Route exact path='/report' component={Report}></Route>
-              <Route exact path='/search-area' component={SearchArea}></Route>
-              <Route
-                exact
-                path='/search-pattern'
-                component={SearchPattern}
-              ></Route>
-              <Route exact path='/results' component={Results}></Route>
-              <Route exact path='/alert' component={Alert}></Route>
-              <Route exact path='/aboutUs' component={About}></Route>
-            </section>
-          </div>
+            <div className='app-body'>
+              <Navbar className='navbar'></Navbar>
+              <Sidebar className='sidebar'></Sidebar>
+              <section className='main'>
+                <Route path='/home' component={Home}></Route>
+                <Route exact path='/report' component={Report}></Route>
+                <Route exact path='/search-area' component={SearchArea}></Route>
+                <Route
+                  exact
+                  path='/search-pattern'
+                  component={SearchPattern}
+                ></Route>
+                <Route exact path='/results' component={Results}></Route>
+                <Route exact path='/alert' component={Alert}></Route>
+                <Route exact path='/aboutUs' component={About}></Route>
+              </section>
+            </div>
+          </Fragment>
         </Switch>
       </Router>
     </Fragment>
