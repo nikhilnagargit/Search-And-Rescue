@@ -64,4 +64,20 @@ router.post(
     }
   });
 
+//@route   DELETE api/reportAircraft/:id
+//@desc    Delete an aircraft
+//@access  Private 
+router.delete('/:id', async (req, res) => {
+  try {
+    let plane = await Airplane.findById(req.params.id);
+
+    if (!plane) return res.status(404).json({ msg: 'Airplane not found' });
+
+    await Airplane.findByIdAndDelete(req.params.id);
+    res.status(201).json({ msg: 'Airplane successfully removed' });
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
