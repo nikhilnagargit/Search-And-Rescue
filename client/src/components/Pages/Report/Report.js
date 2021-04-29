@@ -12,9 +12,9 @@ const Report = () => {
       <div className='report-form'>
         <ReportForm></ReportForm>
       </div>
-      <div class='sidecontent'>
+      <div className='sidecontent'>
         <img className='rescue-img' src={rescue} alt='' />
-        <div class='recent-reports'>
+        <div className='recent-reports'>
           <RecentReports></RecentReports>
         </div>
       </div>

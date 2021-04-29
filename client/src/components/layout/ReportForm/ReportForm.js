@@ -10,7 +10,8 @@ import {
 } from '@material-ui/core';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { showDialog } from '../../../actions/dialog';
+import { connect } from 'react-redux';
 const initialFormData = {
   latitude: '',
   longitude: '',
@@ -23,7 +24,20 @@ const initialFormData = {
   category: '',
 };
 
-const ReportForm = () => {
+const dialogcontent = {
+  title: 'Missing Aircraft Successfully Reported',
+  description:
+    'New missing aircraft has been added. Now you can checkout in recent aircrafts to proceed further for search area operations.',
+  buttontext: 'Ok, I will',
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showDialog: (payload) => dispatch(showDialog(payload)),
+  };
+};
+
+const ReportForm = (props) => {
   const [formData, setformData] = useState(initialFormData);
 
   const onInputFieldChange = (e) => {
@@ -40,6 +54,8 @@ const ReportForm = () => {
       .then((res) => {
         console.log(res);
         setformData(initialFormData);
+        // dispatch a action to show the dialog
+        props.showDialog(dialogcontent);
       })
       .catch((err) => {
         console.log(err);
@@ -154,4 +170,4 @@ const ReportForm = () => {
   );
 };
 
-export default ReportForm;
+export default connect(null, mapDispatchToProps)(ReportForm);

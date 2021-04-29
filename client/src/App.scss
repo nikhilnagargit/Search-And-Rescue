@@ -5,6 +5,8 @@
 }
 
 .app-body {
+  background-image: url('./images/background_pattern.png');
+
   display: grid;
   grid-template-rows: 0.05fr 1fr;
   grid-template-columns: 0.18fr 0.82fr;
