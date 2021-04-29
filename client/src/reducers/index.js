@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
-import dialogReducer from './dialog';
+import dialogReducer from './dialogReducer';
+import reportReducer from './reportReducer';
 
-export default combineReducers({ dialogReducer });
+export default combineReducers({ dialogReducer, reportReducer });

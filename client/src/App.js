@@ -28,8 +28,8 @@ function App() {
             <Route exact path='/' component={Landing} />
             <Fragment>
               <div className='app-body'>
-                <Navbar className='/navbar'></Navbar>
-                <Sidebar className='/sidebar'></Sidebar>
+                <Navbar className='navbar'></Navbar>
+                <Sidebar className='sidebar'></Sidebar>
                 <section className='main'>
                   <DialogAlert></DialogAlert>
                   <Route path='/home' component={Home}></Route>

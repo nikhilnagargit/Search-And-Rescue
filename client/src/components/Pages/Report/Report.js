@@ -3,6 +3,7 @@ import './Report.scss';
 import ReportForm from '../../layout/ReportForm/ReportForm';
 import RecentReports from '../../layout/RecentReports/RecentReports';
 import rescue from '../../../images/rescue.png';
+
 // import Navbar from '../layout/Navbar/Navbar';
 // import Sidebar from '../layout/Sidebar/Sidebar';
 
