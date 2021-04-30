@@ -1,9 +1,10 @@
 .form-container {
   border-radius: 0.5rem;
   box-shadow: rgba(145, 119, 119, 0.35) 0px 5px 15px;
-  max-width: 20rem;
+  max-width: 18rem;
   padding: 1rem;
   min-width: 10rem;
+  height: auto;
   .reportForm {
     display: flex;
     flex-direction: column;
@@ -22,7 +23,7 @@
       width: 100%;
 
       button {
-        margin: 1rem;
+        margin-top: 1rem;
       }
     }
   }

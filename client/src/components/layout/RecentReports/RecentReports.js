@@ -1,11 +1,11 @@
 import Card from '@material-ui/core/Card';
-// import Link from '@material-ui/core/Link';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux';
 import { getReports } from '../../../actions/report';
-import { Link } from 'react-router-dom';
 import './RecentReports.scss';
+import { useDispatch } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,10 +13,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-const RecentReports = (props) => {
+const RecentReports = ({ reportsArray }) => {
+  const customDispatch = useDispatch();
+
   useEffect(() => {
-    props.getReports();
-  }, []);
+    customDispatch(getReports());
+  }, [customDispatch]);
 
   return (
     <div className='recent-container'>
@@ -25,13 +27,13 @@ const RecentReports = (props) => {
         {/* this link is from material , not from router */}
         <div className='show_all'>
           {' '}
-          <Link href='#'>Show All</Link>
+          <Link to='#!'>Show All</Link>
         </div>
       </div>
       <div className='cards-section'>
-        {props.reportsArray.length > 3
-          ? props.reportsArray
-              .slice(props.reportsArray.length - 3, props.reportsArray.length)
+        {reportsArray.length > 3
+          ? reportsArray
+              .slice(reportsArray.length - 3, reportsArray.length)
               .reverse()
               .map((item, i) => (
                 <Card className='card' key={item._id}>
@@ -48,13 +50,15 @@ const RecentReports = (props) => {
                   </div>
                 </Card>
               ))
-          : props.reportsArray.reverse().map((item, i) => (
+          : reportsArray.reverse().map((item, i) => (
               <Card className='card' key={item._id}>
                 <p>{item.title}</p>
                 <div className='bottom'>
-                  <IconButton aria-label='rescue'>
-                    <i className='fas fa-paper-plane fa-sm'></i>
-                  </IconButton>
+                  <Link to='/search-area'>
+                    <IconButton aria-label='rescue'>
+                      <i className='fas fa-paper-plane fa-sm'></i>
+                    </IconButton>
+                  </Link>
                   <IconButton aria-label='delete'>
                     <i className='fas fa-trash fa-sm'></i>
                   </IconButton>
@@ -66,4 +70,4 @@ const RecentReports = (props) => {
   );
 };
 
-export default connect(mapStateToProps, { getReports })(RecentReports);
+export default connect(mapStateToProps, null)(RecentReports);

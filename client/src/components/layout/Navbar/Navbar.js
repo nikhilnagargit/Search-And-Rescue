@@ -11,6 +11,10 @@ const Navbar = () => {
         </div>
 
         <ul className='right-nav-section'>
+          <li>
+            <i className='fa fa-pin'></i>
+            <span>Mapquest library</span>
+          </li>
           <li className='searchbar'>
             <i className='fa fa-search'></i>
             <span>Search</span>

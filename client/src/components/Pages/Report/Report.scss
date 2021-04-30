@@ -12,16 +12,16 @@
     align-self: flex-start;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
 
     .rescue-img {
       margin: 2rem;
-      width: 25vw;
+      width: 30vw;
       height: auto;
     }
     .recent-reports {
       width: 100%;
+      align-self: flex-end;
     }
   }
 }

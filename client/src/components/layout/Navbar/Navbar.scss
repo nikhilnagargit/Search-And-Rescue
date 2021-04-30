@@ -20,14 +20,15 @@ nav {
     }
   }
   .right-nav-section {
-    width: 25%;
+    margin-right: 0.5rem;
+    width: 50%;
     display: flex;
     list-style-type: none;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
 
     li {
-      margin: 2px;
+      margin: 0 0.5rem 0 0.5rem;
       i {
         color: #51308a;
       }
@@ -39,7 +40,7 @@ nav {
       align-items: center;
       height: 20px;
       border: 2px solid black;
-      flex-basis: 50%;
+      flex-basis: 30%;
       padding: 2px;
       text-align: center;
       border-radius: 17px;

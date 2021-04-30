@@ -1,4 +1,4 @@
-import { GET_REPORTS, DELETE_REPORT, CREATE_REPORT } from './types';
+import { GET_REPORTS } from './types';
 import axios from 'axios';
 
 // get all the reports of missing aircrafts from database
