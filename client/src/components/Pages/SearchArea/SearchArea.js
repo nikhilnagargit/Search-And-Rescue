@@ -1,6 +1,5 @@
 import React from 'react';
 import './SearchArea.scss';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,7 +11,6 @@ import { Button } from '@material-ui/core';
 
 import SearchMap from '../../layout/SearchMap/SearchMap';
 import AreaTypeSelector from '../../layout/AreaTypeSelector/AreaTypeSelector';
-import { Container } from '@material-ui/core';
 
 const data = {
   altitude: '5',
@@ -49,7 +47,7 @@ const SearchArea = () => {
             </TableHead>
             <TableBody>
               {Object.entries(data).map((row, index) => (
-                <TableRow key={index} hover='true' className='tablerow'>
+                <TableRow key={index} hover={true} className='tablerow'>
                   <TableCell component='th' scope='row'>
                     {row[0]}
                   </TableCell>

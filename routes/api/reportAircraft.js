@@ -29,44 +29,49 @@ router.post(
   // ],
   async (req, res) => {
     //const errors = validationResult(req);
-    console.log(req.body);
     // if (!errors.isEmpty()) {
     //   return res.status(400).json({ errors: errors.array() });
     // }
-    const {
-      latitude,
-      longitude,
-      velocity,
-      direction,
-      weather,
-      description,
-      altitude,
-      title,
-      category,
-    } = req.body;
-    if (latitude) {
-      const plane = new Airplane({
+
+    try {
+      const {
         latitude,
         longitude,
-        description,
         velocity,
         direction,
         weather,
+        description,
         altitude,
         title,
         category,
-      });
-      await plane.save();
-      console.log('One airplane reported in db');
-      res.status(201).json(plane);
-    } else {
+      } = req.body;
+      if (latitude) {
+        const plane = new Airplane({
+          latitude,
+          longitude,
+          description,
+          velocity,
+          direction,
+          weather,
+          altitude,
+          title,
+          category,
+        });
+        await plane.save();
+        console.log('One airplane reported in db');
+        res.status(201).json(plane);
+      } else {
+        res.status(400).json({ err: 'at least input latitude field.' });
+      }
+    } catch {
       res.status(400).json({ err: 'at least input latitude field.' });
     }
-  });
+  }
+);
 
 //@route   DELETE api/reportAircraft/:id
 //@desc    Delete an aircraft
-//@access  Private 
+//@access  Private
 router.delete('/:id', async (req, res) => {
   try {
     let plane = await Airplane.findById(req.params.id);

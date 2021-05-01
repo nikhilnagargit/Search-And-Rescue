@@ -1,59 +1,58 @@
 .about {
-    margin-top: 50px;
+  margin-top: 50px;
 
-    h1 {
-        color: #02475E;
-        margin-top: 1rem;
-        margin-left: 8rem;
-        font-size: xxx-large;
-    }
+  h2 {
+    color: #02475e;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 
-    .aboutinside {
+    font-size: x-large;
+  }
+
+  .aboutinside {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+
+    .team {
+      margin: 3rem;
+      height: 16rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 2px solid #9e83db;
+      box-sizing: border-box;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.45));
+      border-radius: 1rem;
+
+      li {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        height: 70vh;
+        margin-bottom: 0.6rem;
 
-        .team {
-            margin-left: 4rem;
-            width: 30rem;
-            height: 16rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid #9E83DB;
-            box-sizing: border-box;
-            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-            border-radius: 50px;
-
-            li {
-                display: flex;
-                align-items: center;
-                margin-bottom: 0.6rem;
-
-                span {
-                    font-size: large;
-                    margin-left: 1rem;
-                }
-            }
-            
-            ul {
-                margin-left: 1rem;
-            } 
-            
-            .jecrc {
-                height: 9rem;
-                width: 9rem;
-                margin-right: 1rem;
-            }
+        span {
+          font-size: large;
+          margin-left: 1rem;
         }
-        
-        .amico {
-            height: 25rem;
-            width: 25rem;
-            margin-right: 4rem;
-        }
+      }
+
+      ul {
+        margin-left: 1rem;
+      }
+
+      .jecrc {
+        height: auto;
+        width: 30%;
+        margin-right: 1rem;
+      }
     }
-    
-}
 
+    .amico {
+      height: auto;
+      max-width: 40%;
+    }
+  }
+}
