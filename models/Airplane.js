@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const airplaneSchema = new Schema({
-  latitude: String,
-  longitude: String,
-  direction: String,
+  latitude: Number,
+  longitude: Number,
+  direction: Number,
   weather: String,
-  velocity: String,
+  velocity: Number,
   description: String,
-  altitude: String,
+  altitude: Number,
   category: Number,
   title: String,
 });
