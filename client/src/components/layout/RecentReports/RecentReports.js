@@ -3,7 +3,11 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux';
-import { getReports } from '../../../actions/report';
+import {
+  getReports,
+  deleteReport,
+  setCurrentAircraft,
+} from '../../../actions/report';
 import './RecentReports.scss';
 import { useDispatch } from 'react-redux';
 
@@ -13,9 +17,18 @@ const mapStateToProps = (state) => {
   };
 };
 
-const RecentReports = ({ reportsArray }) => {
-  const customDispatch = useDispatch();
+// main component of this file
 
+const RecentReports = ({ reportsArray, deleteReport, setCurrentAircraft }) => {
+  const customDispatch = useDispatch();
+  let data = [];
+  if (reportsArray.length > 3) {
+    data = reportsArray
+      .slice(reportsArray.length - 3, reportsArray.length)
+      .reverse();
+  } else {
+    data = reportsArray.reverse();
+  }
   useEffect(() => {
     customDispatch(getReports());
   }, [customDispatch]);
@@ -31,43 +44,36 @@ const RecentReports = ({ reportsArray }) => {
         </div>
       </div>
       <div className='cards-section'>
-        {reportsArray.length > 3
-          ? reportsArray
-              .slice(reportsArray.length - 3, reportsArray.length)
-              .reverse()
-              .map((item, i) => (
-                <Card className='card' key={item._id}>
-                  <p>{item.title}</p>
-                  <div className='bottom'>
-                    <Link to='/search-area'>
-                      <IconButton aria-label='rescue'>
-                        <i className='fas fa-paper-plane fa-sm'></i>
-                      </IconButton>
-                    </Link>
-                    <IconButton aria-label='delete'>
-                      <i className='fas fa-trash fa-sm'></i>
-                    </IconButton>
-                  </div>
-                </Card>
-              ))
-          : reportsArray.reverse().map((item, i) => (
-              <Card className='card' key={item._id}>
-                <p>{item.title}</p>
-                <div className='bottom'>
-                  <Link to='/search-area'>
-                    <IconButton aria-label='rescue'>
-                      <i className='fas fa-paper-plane fa-sm'></i>
-                    </IconButton>
-                  </Link>
-                  <IconButton aria-label='delete'>
-                    <i className='fas fa-trash fa-sm'></i>
-                  </IconButton>
-                </div>
-              </Card>
-            ))}
+        {data.map((item, i) => (
+          <Card className='card' key={item._id}>
+            <p>{item.title}</p>
+            <div className='bottom'>
+              <Link to='/search-area'>
+                <IconButton
+                  onClick={() => {
+                    setCurrentAircraft(item);
+                  }}
+                  aria-label='rescue'
+                >
+                  <i className='fas fa-paper-plane fa-sm'></i>
+                </IconButton>
+              </Link>
+              <IconButton
+                aria-label='delete'
+                onClick={(e) => {
+                  deleteReport(item._id);
+                }}
+              >
+                <i className='fas fa-trash fa-sm'></i>
+              </IconButton>
+            </div>
+          </Card>
+        ))}
       </div>
     </div>
   );
 };
 
-export default connect(mapStateToProps, null)(RecentReports);
+export default connect(mapStateToProps, { deleteReport, setCurrentAircraft })(
+  RecentReports
+);

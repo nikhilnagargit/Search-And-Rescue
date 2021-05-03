@@ -6,19 +6,31 @@ import user from '../../../images/user.png';
 
 const About = () => {
   return (
-    <div className="about">
-      <h1>Search And Rescue operations for missing Aircraft</h1>
-      <div className="aboutinside">
-        <div className="team">
+    <div className='about'>
+      <h2>Search And Rescue operations for missing Aircraft</h2>
+      <div className='aboutinside'>
+        <div className='team'>
           <ul>
-            <li><img src={user} /><span>Nikhil Nagar</span></li>
-            <li><img src={user} /><span>Laxit Yadav</span></li>
-            <li><img src={user} /><span>Lakhan Kachhawa</span></li>
-            <li><img src={user} /><span>Karamveer Singh Rathore</span></li>
+            <li>
+              <img src={user} alt='' />
+              <span>Nikhil Nagar</span>
+            </li>
+            <li>
+              <img src={user} alt='' />
+              <span>Laxit Yadav</span>
+            </li>
+            <li>
+              <img src={user} alt='' />
+              <span>Lakhan Kachhawa</span>
+            </li>
+            <li>
+              <img src={user} alt='' />
+              <span>Karamveer Singh Rathore</span>
+            </li>
           </ul>
-          <img className="jecrc" src={jecrc} alt=""></img>
+          <img className='jecrc' src={jecrc} alt=''></img>
         </div>
-        <img className="amico" src={amico} alt=""></img>
+        <img className='amico' src={amico} alt=''></img>
       </div>
     </div>
   );

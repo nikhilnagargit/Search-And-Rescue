@@ -21,7 +21,6 @@ const AreaTypeSelector = () => {
             value='circle'
             control={<Radio />}
             label='Circluar'
-            Typography
           />
           <FormControlLabel
             value='rectangle'
