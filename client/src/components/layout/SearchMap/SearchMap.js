@@ -1,11 +1,12 @@
 import './SearchMap.scss';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
+import { GeoJSON } from 'react-leaflet';
 
+import hospital_pin from '../../../images/hospital_pin.png';
+import station_pin from '../../../images/station_pin.png';
 import L from 'leaflet';
 import { connect } from 'react-redux';
-
-import React from 'react';
 
 const mapStateToProps = (state) => {
   return {
@@ -15,8 +16,16 @@ const mapStateToProps = (state) => {
 
 // main componant
 const SearchMap = (props) => {
-  console.log(props.aircraft);
-  console.log(Object.entries(props.aircraft).length !== 0);
+  // fetch data for search area
+
+  const getImageFromPoint = (type) => {
+    if (type === 'hospital') {
+      return hospital_pin;
+    } else if (type === 'station') {
+      return station_pin;
+    }
+  };
+
   const apitoken =
     'pk.eyJ1IjoibmlraGlsbmFnYXIxMjMiLCJhIjoiY2tvM3l1MGRhMWU5czJ4b2JteWd6NHdoayJ9.ME2Il0_kSq5tr19J6m2UHQ';
 
@@ -33,9 +42,39 @@ const SearchMap = (props) => {
       zoom={12}
     >
       <TileLayer url={tileurl} />
+
+      {Object.entries(props.areaData).length !== 0 && (
+        <>
+          <GeoJSON key={1} data={props.areaData.geojson} />
+
+          {props.areaData.help_points.features.map((item, index) => {
+            return (
+              <Marker
+                key={index}
+                icon={L.icon({
+                  iconUrl: getImageFromPoint(item.properties.type),
+                  iconSize: 30,
+                })}
+                position={[
+                  item.geometry.coordinates[1],
+                  item.geometry.coordinates[0],
+                ]}
+              >
+                <Popup>
+                  <b>{item.properties.type}</b>
+                  <br />
+
+                  {item.properties.title}
+                </Popup>
+              </Marker>
+            );
+          })}
+        </>
+      )}
+
       {Object.entries(props.aircraft).length !== 0 && (
         <Marker
-          icon={L.icon({ iconUrl: airplane_pin, iconSize: 50 })}
+          icon={L.icon({ iconUrl: airplane_pin, iconSize: 40 })}
           position={[props.aircraft.latitude, props.aircraft.longitude]}
         >
           <Popup>

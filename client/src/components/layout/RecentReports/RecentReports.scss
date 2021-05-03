@@ -41,5 +41,9 @@
         }
       }
     }
+
+    .card:hover {
+      box-shadow: rgba(88, 14, 157, 0.45) 0px 5px 15px;
+    }
   }
 }

@@ -8,32 +8,28 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
-
+import { connect } from 'react-redux';
 import SearchMap from '../../layout/SearchMap/SearchMap';
 import AreaTypeSelector from '../../layout/AreaTypeSelector/AreaTypeSelector';
-
-const data = {
-  altitude: '5',
-  category: 2,
-  description: 'Aircraft lost while turning way to New Delhi.',
-  direction: '56',
-  latitude: '550.7',
-  longitude: '180.8',
-  title: 'Flight 222',
-  velocity: '345',
-  weather: 'Raining',
+import { getSearchArea } from '../../../actions/area.js';
+const mapStateToProps = (state) => {
+  return {
+    areaData: state.searchAreaReducer,
+  };
 };
 
 // main component
 
-const SearchArea = () => {
+const SearchArea = (props) => {
   return (
     <div className='search-area-main'>
       <div className='top'>
         <AreaTypeSelector></AreaTypeSelector>
       </div>
       <div className='middle'>
-        <SearchMap />
+        {/* pass down the area's data and geojson as prop */}
+
+        <SearchMap areaData={props.areaData} />
       </div>
       <div className='side'>
         <TableContainer component={Paper} className='table'>
@@ -41,24 +37,44 @@ const SearchArea = () => {
             <TableHead>
               <TableRow>
                 <TableCell colSpan={2} align='center'>
-                  <h4>Current Missing Flight Information</h4>
+                  <p style={{ fontSize: '1rem' }}>
+                    Current Search Area Information
+                  </p>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {Object.entries(data).map((row, index) => (
-                <TableRow key={index} hover={true} className='tablerow'>
-                  <TableCell component='th' scope='row'>
-                    {row[0]}
-                  </TableCell>
-                  <TableCell>{row[1]}</TableCell>
-                </TableRow>
-              ))}
+              {Object.entries(props.areaData).length !== 0 ? (
+                Object.entries(
+                  props.areaData.geojson.features[0].properties
+                ).map((row, index) => (
+                  <TableRow key={index} hover={true} className='tablerow'>
+                    <TableCell component='th' scope='row'>
+                      {row[0]}
+                    </TableCell>
+                    <TableCell>
+                      <p style={{ color: 'purple' }}>{row[1]}</p>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <p style={{ color: 'blue', padding: '3rem' }}>
+                  <i className='fas fa-exclamation-circle'></i> Load search area
+                  first...
+                </p>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
         <div className='button-container'>
-          <Button variant='contained' color='primary' size='small'>
+          <Button
+            variant='contained'
+            color='primary'
+            size='small'
+            onClick={() => {
+              props.getSearchArea();
+            }}
+          >
             Find Area
           </Button>
           <Button variant='contained' color='secondary' size='small'>
@@ -70,4 +86,4 @@ const SearchArea = () => {
   );
 };
 
-export default SearchArea;
+export default connect(mapStateToProps, { getSearchArea })(SearchArea);
