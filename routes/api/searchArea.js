@@ -1,5 +1,5 @@
 const express = require('express');
-const { calcDistance, calcLatLon } = require('../../calcArea');
+const { calcDistance, calcLatLon, calcSquareJson, calcFacilities } = require('../../calcArea');
 const Airplane = require('../../models/Airplane');
 const router = express.Router();
 
@@ -12,8 +12,10 @@ router.get('/:id', async (req, res) => {
   let distance = calcDistance(altitude, velocity);
   let newLatLon = calcLatLon(latitude, longitude, direction, distance);
 
-  //make a geojson for new latitude and longitude and send
-  res.status(201).json({ distance, newLatLon });
+  //make a geojson for new latitude and longitude and send along with some help points
+  let sqJson = calcSquareJson(newLatLon);
+  //let helpPoints = calcFacilities(newLatLon);
+  res.status(201).json(sqJson);
 });
 
 module.exports = router;

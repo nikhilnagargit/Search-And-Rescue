@@ -2,6 +2,41 @@ exports.calcDistance = function (altitude, velocity) {
     return velocity * Math.sqrt(altitude / 4.9);
 }
 
+exports.calcSquareJson = function (newLatLon) {
+    let latlon1 = [newLatLon[0] + 1, newLatLon[1] + 0.3];
+    let latlon2 = [newLatLon[0] + 1, newLatLon[1] - 0.3];
+    let latlon3 = [newLatLon[0] - 1, newLatLon[1] - 0.3];
+    let latlon4 = [newLatLon[0] - 1, newLatLon[1] + 0.3];
+    return {
+        "geojson": {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "type": "land",
+                        "area": "14785.2 square km",
+                        "shape": "rectangle",
+                        "description": "this area is very dangerous."
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [latlon1[0], latlon1[1]],
+                                [latlon2[0], latlon2[1]],
+                                [latlon3[0], latlon3[1]],
+                                [latlon4[0], latlon4[1]],
+                                [latlon1[0], latlon1[1]]
+                            ]
+                        ]
+                    }
+                }
+            ]
+        }
+    };
+}
+
 exports.calcLatLon = function (latitude, longitude, direction, distance) {
     let radius = 6371e3; // (Mean) radius of earth
 
@@ -25,5 +60,9 @@ exports.calcLatLon = function (latitude, longitude, direction, distance) {
     let λ2 = λ1 + Math.atan2(y, x);
 
     return [toDegrees(φ2), (toDegrees(λ2) + 540) % 360 - 180]; // normalise to −180..+180°
+}
+
+exports.calcFacilities = function (newLatLon) {
+    //call api and get values 
 }
 
