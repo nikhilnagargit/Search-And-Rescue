@@ -1,5 +1,5 @@
 import './SearchMap.scss';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
 import {
   GeoJSON,
@@ -10,6 +10,8 @@ import {
   Rectangle,
 } from 'react-leaflet';
 
+import Animate from 'leaflet.animatedmarker/src/AnimatedMarker';
+
 import hospital_pin from '../../../images/hospital_pin.png';
 import station_pin from '../../../images/station_pin.png';
 import L from 'leaflet';
@@ -19,6 +21,42 @@ const mapStateToProps = (state) => {
   return {
     aircraft: state.aircraftReducer,
   };
+};
+
+// helper componemt
+const AnimatedMarker = () => {
+  const getPolyline = () => {
+    const list = [
+      [75.83398818969727, 25.18878705643202],
+      [75.82609176635742, 25.141555107671604],
+      [75.88119506835938, 25.136893068683843],
+      [75.88462829589844, 25.181330596649822],
+      [75.84823608398438, 25.1810199009232],
+      [75.84239959716797, 25.150567878227317],
+      [75.86677551269531, 25.14746010148844],
+      [75.87158203125, 25.17107721946786],
+      [75.86042404174805, 25.16921287641151],
+      [75.85819244384766, 25.160978353607337],
+    ];
+
+    const newList = list.map((item) => {
+      return [item[1], item[0]];
+    });
+
+    return newList;
+  };
+
+  const data_line = getPolyline();
+  var line = L.polyline(data_line);
+  var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+    autoStart: true,
+    distance: 3000, // meters
+    interval: 1000, // milliseconds
+  });
+  const map = useMap();
+  map.addLayer(animatedMarker);
+
+  return <></>;
 };
 
 // main componant
@@ -65,6 +103,7 @@ const SearchMap = (props) => {
 
         <LayersControl.Overlay name='Search Area Layer' checked>
           <GeoJSON key={1} data={props.areaData.geojson} />
+          <AnimatedMarker></AnimatedMarker>
         </LayersControl.Overlay>
 
         {/* aircraft and its popup layer */}
