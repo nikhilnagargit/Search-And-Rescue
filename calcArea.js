@@ -23,16 +23,20 @@ exports.calcSquareJson = function (newLatLon) {
                         "type": "Polygon",
                         "coordinates": [
                             [
-                                [latlon1[0], latlon1[1]],
-                                [latlon2[0], latlon2[1]],
-                                [latlon3[0], latlon3[1]],
-                                [latlon4[0], latlon4[1]],
-                                [latlon1[0], latlon1[1]]
+                                [latlon1[1], latlon1[0]],
+                                [latlon2[1], latlon2[0]],
+                                [latlon3[1], latlon3[0]],
+                                [latlon4[1], latlon4[0]],
+                                [latlon1[1], latlon1[0]]
                             ]
                         ]
                     }
                 }
             ]
+        },
+        help_points: {
+            type: 'FeatureCollection',
+            features: []
         }
     };
 }
