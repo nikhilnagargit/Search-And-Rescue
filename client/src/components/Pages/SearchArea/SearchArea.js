@@ -29,7 +29,7 @@ const SearchArea = (props) => {
       <div className='middle'>
         {/* pass down the area's data and geojson as prop */}
 
-        <SearchMap areaData={props.areaData} />
+        <SearchMap />
       </div>
       <div className='side'>
         <TableContainer component={Paper} className='table'>

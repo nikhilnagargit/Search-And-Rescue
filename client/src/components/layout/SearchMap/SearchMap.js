@@ -1,4 +1,5 @@
 import './SearchMap.scss';
+import React, { useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
 import {
@@ -20,6 +21,7 @@ import { connect } from 'react-redux';
 const mapStateToProps = (state) => {
   return {
     aircraft: state.aircraftReducer,
+    areaData: state.searchAreaReducer,
   };
 };
 
@@ -102,7 +104,7 @@ const SearchMap = (props) => {
         {/* layer, which shows search area */}
 
         <LayersControl.Overlay name='Search Area Layer' checked>
-          <GeoJSON key={1} data={props.areaData.geojson} />
+          <GeoJSON key={'whatever'} data={props.areaData.geojson} />
           <AnimatedMarker></AnimatedMarker>
         </LayersControl.Overlay>
 
