@@ -44,7 +44,7 @@ router.post(
         category,
       } = req.body;
 
-      if (latitude < -180 || latitude > 180 || longitude < -180 || longitude > 180 || velocity < 0 || altitude < 0 || direction < 0 || direction > 360)
+      if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 || velocity < 0 || altitude < 0 || direction < 0 || direction > 360)
         return res.status(400).json({ err: 'please enter valid values in fields' });
 
       const plane = new Airplane({

@@ -12,9 +12,8 @@ router.get('/:id', async (req, res) => {
   let distance = calcDistance(altitude, velocity);
   let newLatLon = calcLatLon(latitude, longitude, direction, distance);
 
-  //make a geojson for new latitude and longitude and send along with some help points
-  let sqJson = calcSquareJson(newLatLon);
-  //let helpPoints = calcFacilities(newLatLon);
+  //make a geojson for new latitude and longitude
+  let sqJson = calcSquareJson(newLatLon, 15, direction);
   res.status(201).json(sqJson);
 });
 
