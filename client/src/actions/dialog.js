@@ -15,6 +15,6 @@ export const showDialog = (payload) => (dispatch) => {
 export const hideDialog = () => (dispatch) => {
   dispatch({
     type: SHOW_DIALOG,
-    payload: { buttontext: '', text: '', description: '', visible: false },
+    payload: { buttontext: '', title: '', description: '', visible: false },
   });
 };

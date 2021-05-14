@@ -26,6 +26,7 @@ export const getReports = () => async (dispatch) => {
         title: 'Oops! Error from server',
         description: err.message,
         buttontext: 'Ok! Let me check',
+        visible: true,
       })
     );
   }
@@ -50,6 +51,7 @@ export const deleteReport = (id) => async (dispatch) => {
           description:
             'the aircraft you deleted, is removed from the current Aircraft for Search And Rescue Operations. You can choose new one.',
           buttontext: 'Ok! Let me choose',
+          visible: true,
         })
       );
     }
@@ -83,6 +85,7 @@ export const setCurrentAircraft = (aircraft) => (dispatch) => {
         aircraft.title +
         ' is the target to search and rescue.',
       buttontext: 'Ok!',
+      visible: true,
     })
   );
 };

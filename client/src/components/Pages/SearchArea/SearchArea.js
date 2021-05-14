@@ -18,6 +18,12 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getSearchArea: () => dispatch(getSearchArea()),
+  };
+};
+
 // main component
 
 const SearchArea = (props) => {
@@ -52,16 +58,20 @@ const SearchArea = (props) => {
                     <TableCell component='th' scope='row'>
                       {row[0]}
                     </TableCell>
-                    <TableCell>
-                      <p style={{ color: 'purple' }}>{row[1]}</p>
+                    <TableCell
+                      component='th'
+                      scopr='row'
+                      style={{ color: 'purple' }}
+                    >
+                      {row[1]}
                     </TableCell>
                   </TableRow>
                 ))
               ) : (
-                <p style={{ color: 'blue', padding: '3rem' }}>
-                  <i className='fas fa-exclamation-circle'></i> Load search area
+                <TableRow style={{ color: 'blue', padding: '3rem' }}>
+                  <i className='fas fa-exclamation-circle'></i>Load search area
                   first...
-                </p>
+                </TableRow>
               )}
             </TableBody>
           </Table>
@@ -86,4 +96,4 @@ const SearchArea = (props) => {
   );
 };
 
-export default connect(mapStateToProps, { getSearchArea })(SearchArea);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);

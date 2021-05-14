@@ -2,6 +2,7 @@ import './SearchMap.scss';
 import React, { useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
+import default_pin from '../../../images/default_pin.png';
 import {
   GeoJSON,
   Circle,
@@ -22,6 +23,7 @@ const mapStateToProps = (state) => {
   return {
     aircraft: state.aircraftReducer,
     areaData: state.searchAreaReducer,
+    help_points_geojson: state.helpPointsReducer,
   };
 };
 
@@ -71,6 +73,8 @@ const SearchMap = (props) => {
       return hospital_pin;
     } else if (type === 'station') {
       return station_pin;
+    } else {
+      return default_pin;
     }
   };
 
@@ -147,14 +151,14 @@ const SearchMap = (props) => {
         {/* layers, which shows additionl points like hospitals, bases etc */}
         <LayersControl.Overlay checked name='Additional Spots Layer'>
           <LayerGroup>
-            {Object.entries(props.areaData).length !== 0 && (
+            {props.help_points_geojson.features.length !== 0 && (
               <>
-                {props.areaData.help_points.features.map((item, index) => {
+                {props.help_points_geojson.features.map((item, index) => {
                   return (
                     <Marker
                       key={index}
                       icon={L.icon({
-                        iconUrl: getImageFromPoint(item.properties.type),
+                        iconUrl: getImageFromPoint(item.properties.amenity),
                         iconSize: 30,
                       })}
                       position={[
@@ -163,10 +167,16 @@ const SearchMap = (props) => {
                       ]}
                     >
                       <Popup>
-                        <b>{item.properties.type}</b>
-                        <br />
-
-                        {item.properties.title}
+                        {Object.entries(item.properties).map((entry) => {
+                          return (
+                            <>
+                              <span>
+                                {entry[0]}:{entry[1]}
+                              </span>
+                              <br />
+                            </>
+                          );
+                        })}
                       </Popup>
                     </Marker>
                   );
