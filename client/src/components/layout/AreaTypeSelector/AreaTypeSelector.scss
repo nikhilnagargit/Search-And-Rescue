@@ -4,8 +4,14 @@
   border-radius: 0.5rem;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 
   .radiogroup {
-    padding: 0.5rem;
+    padding: 0.4rem;
+  }
+
+  .checkboxgroup {
+    padding: 0.4rem;
   }
 }

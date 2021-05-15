@@ -11,10 +11,6 @@ export const getSearchArea = () => async (dispatch) => {
   try {
     const response = await axios.get(`api/searchArea/${current_aircraft_id}`);
     const area_data = response.data;
-    console.log(area_data);
-
-    // after getting the area, get the help_points in that area
-    dispatch(getHelpPoints());
 
     dispatch({
       type: GET_AREA,

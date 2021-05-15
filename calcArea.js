@@ -8,6 +8,7 @@ exports.calcSquareJson = function (newLatLon) {
   let latlon3 = [newLatLon[0] - 1, newLatLon[1] - 0.3];
   let latlon4 = [newLatLon[0] - 1, newLatLon[1] + 0.3];
   return {
+    id: Math.random(),
     geojson: {
       type: 'FeatureCollection',
       features: [
@@ -33,10 +34,6 @@ exports.calcSquareJson = function (newLatLon) {
           },
         },
       ],
-    },
-    help_points: {
-      type: 'FeatureCollection',
-      features: [],
     },
   };
 };

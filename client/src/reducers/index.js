@@ -4,6 +4,7 @@ import reportReducer from './reportReducer';
 import aircraftReducer from './aircraftReducer';
 import searchAreaReducer from './searchAreaReducer';
 import helpPointsReducer from './helpPointsReducer';
+import roadsReducer from './roadsReducer';
 
 export default combineReducers({
   dialogReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   aircraftReducer,
   searchAreaReducer,
   helpPointsReducer,
+  roadsReducer,
 });

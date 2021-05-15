@@ -24,6 +24,7 @@ const mapStateToProps = (state) => {
     aircraft: state.aircraftReducer,
     areaData: state.searchAreaReducer,
     help_points_geojson: state.helpPointsReducer,
+    roads_geojson: state.roadsReducer,
   };
 };
 
@@ -108,7 +109,7 @@ const SearchMap = (props) => {
         {/* layer, which shows search area */}
 
         <LayersControl.Overlay name='Search Area Layer' checked>
-          <GeoJSON key={'whatever'} data={props.areaData.geojson} />
+          <GeoJSON key={props.areaData.id} data={props.areaData.geojson} />
           <AnimatedMarker></AnimatedMarker>
         </LayersControl.Overlay>
 
@@ -167,10 +168,10 @@ const SearchMap = (props) => {
                       ]}
                     >
                       <Popup>
-                        {Object.entries(item.properties).map((entry) => {
+                        {Object.entries(item.properties).map((entry, index) => {
                           return (
                             <>
-                              <span>
+                              <span key={index}>
                                 {entry[0]}:{entry[1]}
                               </span>
                               <br />
@@ -183,6 +184,15 @@ const SearchMap = (props) => {
                 })}
               </>
             )}
+          </LayerGroup>
+        </LayersControl.Overlay>
+        {/* layers, which shows additionl shapes of geography like roads or rivers */}
+        <LayersControl.Overlay checked name='Roads or Rivers'>
+          <LayerGroup>
+            <GeoJSON
+              key={props.roads_geojson.features.length}
+              data={props.roads_geojson}
+            />
           </LayerGroup>
         </LayersControl.Overlay>
       </LayersControl>

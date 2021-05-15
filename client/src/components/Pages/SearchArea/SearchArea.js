@@ -37,6 +37,8 @@ const SearchArea = (props) => {
 
         <SearchMap />
       </div>
+
+      {/* show additional information on right side of the page */}
       <div className='side'>
         <TableContainer component={Paper} className='table'>
           <Table aria-label='simple table' size='small'>
@@ -50,29 +52,22 @@ const SearchArea = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {Object.entries(props.areaData).length !== 0 ? (
-                Object.entries(
-                  props.areaData.geojson.features[0].properties
-                ).map((row, index) => (
-                  <TableRow key={index} hover={true} className='tablerow'>
-                    <TableCell component='th' scope='row'>
-                      {row[0]}
-                    </TableCell>
-                    <TableCell
-                      component='th'
-                      scopr='row'
-                      style={{ color: 'purple' }}
-                    >
-                      {row[1]}
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow style={{ color: 'blue', padding: '3rem' }}>
-                  <i className='fas fa-exclamation-circle'></i>Load search area
-                  first...
+              {Object.entries(
+                props.areaData.geojson.features[0].properties
+              ).map((row, index) => (
+                <TableRow key={index} hover={true} className='tablerow'>
+                  <TableCell component='th' scope='row'>
+                    {row[0]}
+                  </TableCell>
+                  <TableCell
+                    component='th'
+                    scopr='row'
+                    style={{ color: 'purple' }}
+                  >
+                    {row[1]}
+                  </TableCell>
                 </TableRow>
-              )}
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

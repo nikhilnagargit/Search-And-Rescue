@@ -1,7 +1,19 @@
 import { GET_AREA } from '../actions/types';
 
-const initialState = {};
-
+const initialState = {
+  id: Math.random(),
+  geojson: {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        properties: {
+          NA: 'Load the search area first',
+        },
+      },
+    ],
+  },
+};
 function searchAreaReducer(state = initialState, action) {
   switch (action.type) {
     case GET_AREA:
