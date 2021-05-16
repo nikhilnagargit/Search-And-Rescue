@@ -1,23 +1,15 @@
 import './SearchMap.scss';
-import React, { useRef } from 'react';
+import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
 import default_pin from '../../../images/default_pin.png';
-import {
-  GeoJSON,
-  Circle,
-  LayersControl,
-  LayerGroup,
-  FeatureGroup,
-  Rectangle,
-} from 'react-leaflet';
-
+import { GeoJSON, LayersControl, LayerGroup } from 'react-leaflet';
 import Animate from 'leaflet.animatedmarker/src/AnimatedMarker';
-
 import hospital_pin from '../../../images/hospital_pin.png';
 import station_pin from '../../../images/station_pin.png';
 import L from 'leaflet';
 import { connect } from 'react-redux';
+import './rotateMarker.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -29,7 +21,8 @@ const mapStateToProps = (state) => {
 };
 
 // helper componemt
-const AnimatedMarker = () => {
+const InteractWithMap = () => {
+  // do whatever want, with leaflet "map"
   const getPolyline = () => {
     const list = [
       [75.83398818969727, 25.18878705643202],
@@ -57,8 +50,13 @@ const AnimatedMarker = () => {
     autoStart: true,
     distance: 3000, // meters
     interval: 1000, // milliseconds
+    rotateAngle: 45,
   });
+
+  // use map
   const map = useMap();
+
+  // add animated marker
   map.addLayer(animatedMarker);
 
   return <></>;
@@ -95,9 +93,12 @@ const SearchMap = (props) => {
       }
       zoom={12}
     >
+      {/* to access the map by useMap hook, we can access map directly and use it as normal leaflet map */}
+      <InteractWithMap></InteractWithMap>
+
       <LayersControl position='topright'>
         {/* set the base layer option 1 */}
-        <LayersControl.BaseLayer checked name='  Streets View'>
+        <LayersControl.BaseLayer checked name=' Streets View'>
           <TileLayer url={tileurl_option1} />
         </LayersControl.BaseLayer>
 
@@ -110,7 +111,6 @@ const SearchMap = (props) => {
 
         <LayersControl.Overlay name='Search Area Layer' checked>
           <GeoJSON key={props.areaData.id} data={props.areaData.geojson} />
-          <AnimatedMarker></AnimatedMarker>
         </LayersControl.Overlay>
 
         {/* aircraft and its popup layer */}
@@ -118,7 +118,10 @@ const SearchMap = (props) => {
           <LayerGroup>
             {Object.entries(props.aircraft).length !== 0 && (
               <Marker
-                icon={L.icon({ iconUrl: airplane_pin, iconSize: 40 })}
+                icon={L.icon({
+                  iconUrl: airplane_pin,
+                  iconSize: 35,
+                })}
                 position={[props.aircraft.latitude, props.aircraft.longitude]}
               >
                 <Popup>

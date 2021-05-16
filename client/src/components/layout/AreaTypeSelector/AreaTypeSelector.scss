@@ -6,12 +6,18 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 
   .radiogroup {
     padding: 0.4rem;
   }
 
   .checkboxgroup {
+    padding: 0.4rem;
+  }
+
+  .buffer {
     padding: 0.4rem;
   }
 }

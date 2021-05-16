@@ -1,17 +1,18 @@
-import { GET_ROADS, SHOW_DIALOG } from './types';
+import { GET_ROADS, SHOW_DIALOG, RESET_ROADS } from './types';
 import axios from 'axios';
 import osmtogeojson from 'osmtogeojson';
 import store from '../store';
 
 export const getRoads =
-  (radius = '5000') =>
+  (buffer_radius = 10) =>
   async (dispatch) => {
     try {
       // by default it will searh for 10000 meter radius for roads
       const missing_point = `${store.getState().aircraftReducer.latitude},${
         store.getState().aircraftReducer.longitude
       }`;
-
+      // convert radius in meters
+      const radius = buffer_radius * 1000;
       const roads_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(way["highway"](around:${radius},${missing_point});relation["highway"](around:${radius},${missing_point}););out body;>;out skel qt;`;
 
       console.log(roads_query);
@@ -37,3 +38,13 @@ export const getRoads =
       });
     }
   };
+
+export const resetRoads = () => (dispatch) => {
+  dispatch({
+    type: RESET_ROADS,
+    payload: {
+      type: 'FeatureCollection',
+      features: [],
+    },
+  });
+};

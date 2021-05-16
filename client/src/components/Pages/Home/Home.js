@@ -15,11 +15,11 @@ const Home = () => {
   return (
     <div className='homecontent'>
       <img src={airsupport} className='background-image' alt='' />
-      <div className='header'>
-        <h2>Perform Search and Rescue Operations for missing aircrafts.</h2>
-      </div>
 
       <div className='middle'>
+        <div className='header'>
+          <h2>Perform Search and Rescue Operations for missing aircrafts.</h2>
+        </div>
         <h3 className='middle-heading'>How It Works?</h3>
         <div className='cards'>
           <div className='card'>
@@ -62,12 +62,12 @@ const Home = () => {
             <img className='main-image' src={resultsicon} alt='' />
           </div>
         </div>
-      </div>
 
-      <div className='bottom'>
-        <Link to='report' className='button'>
-          <div>Click here to report a missing Aircraft</div>
-        </Link>
+        <div className='bottom'>
+          <Link to='report' className='button'>
+            <div>Click here to report a missing Aircraft</div>
+          </Link>
+        </div>
       </div>
     </div>
   );

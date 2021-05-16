@@ -1,4 +1,4 @@
-import { GET_HELP_POINTS } from '../actions/types';
+import { GET_HELP_POINTS, RESET_HELP_POINTS } from '../actions/types';
 
 const initialState = {
   type: 'FeatureCollection',
@@ -8,6 +8,8 @@ const initialState = {
 function helpPointsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_HELP_POINTS:
+      return action.payload;
+    case RESET_HELP_POINTS:
       return action.payload;
     default:
       return state;

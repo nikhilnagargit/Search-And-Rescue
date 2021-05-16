@@ -1,4 +1,4 @@
-import { GET_ROADS } from '../actions/types';
+import { GET_ROADS, RESET_ROADS } from '../actions/types';
 
 const initialState = {
   type: 'FeatureCollection',
@@ -8,6 +8,8 @@ const initialState = {
 function roadsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ROADS:
+      return action.payload;
+    case RESET_ROADS:
       return action.payload;
     default:
       return state;

@@ -42,6 +42,9 @@ $base-color: red;
       text-decoration: none;
     }
     list-style-type: none;
+    .active-tab {
+      background-color: #0a607c;
+    }
     li {
       align-items: center;
       justify-content: center;
@@ -63,7 +66,7 @@ $base-color: red;
       }
     }
     li:hover {
-      background-color: #08536b;
+      background-color: #0a607c;
     }
   }
 }
