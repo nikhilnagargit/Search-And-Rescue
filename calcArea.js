@@ -1,32 +1,29 @@
+const turf = require('@turf/turf');
+
 exports.calcDistance = function (altitude, velocity) {
   altitude = altitude * 1000.0;
   velocity = (velocity * 5.0) / 18.0;
   return velocity * Math.sqrt(altitude / 4.9);
 };
 
-function translate(lat, lon, direction, newLatLon) {
-  direction = range(direction);
-  let newLat = lat * Math.cos(direction) - lon * Math.sin(direction);
-  let newLon = lat * Math.sin(direction) + lon * Math.cos(direction);
-  return [newLat + newLatLon[0], newLon + newLatLon[1]];
-}
-
-function range(d) {
-  if ((d >= 337 && d <= 360) || (d >= 0 && d <= 22) || (d >= 157 && d <= 202))
-    return 0;
-  if ((d >= 22 && d <= 45) || (d >= 202 && d <= 225)) return 10;
-  if ((d >= 45 && d <= 67) || (d >= 225 && d <= 247)) return 20;
-  if ((d >= 67 && d <= 112) || (d >= 247 && d <= 292)) return 30;
-  if ((d >= 112 && d <= 135) || (d >= 292 && d <= 315)) return 40;
-  return 50;
-}
-
 exports.calcSquareJson = function (newLatLon, side, direction) {
   side = side / 100.0;
-  let latlon1 = translate(side, side / 2, direction, newLatLon);
-  let latlon2 = translate(side, -side / 2, direction, newLatLon);
-  let latlon3 = translate(-side, -side / 2, direction, newLatLon);
-  let latlon4 = translate(-side, side / 2, direction, newLatLon);
+  let latlon1 = [newLatLon[0] + side, newLatLon[1] + side / 2];
+  let latlon2 = [newLatLon[0] + side, newLatLon[1] - side / 2];
+  let latlon3 = [newLatLon[0] - side, newLatLon[1] - side / 2];
+  let latlon4 = [newLatLon[0] - side, newLatLon[1] + side / 2];
+
+  let poly = turf.polygon([[[latlon1[1], latlon1[0]],
+  [latlon2[1], latlon2[0]],
+  [latlon3[1], latlon3[0]],
+  [latlon4[1], latlon4[0]],
+  [latlon1[1], latlon1[0]]]]);
+  let options = { pivot: [newLatLon[1], newLatLon[0]] };
+  let rotatedPoly = turf.transformRotate(poly, direction, options);
+  let area = turf.area(poly) / 1000000;
+
+  const { coordinates } = rotatedPoly.geometry;
+
   return {
     geojson: {
       type: 'FeatureCollection',
@@ -35,19 +32,20 @@ exports.calcSquareJson = function (newLatLon, side, direction) {
           type: 'Feature',
           properties: {
             type: 'land',
-            area: '14785.2 square km',
+            area: area.toFixed(2) + ' sq km',
             shape: 'rectangle',
             description: 'this area is very dangerous.',
+            crashPoint: newLatLon
           },
           geometry: {
             type: 'Polygon',
             coordinates: [
               [
-                [latlon1[1], latlon1[0]],
-                [latlon2[1], latlon2[0]],
-                [latlon3[1], latlon3[0]],
-                [latlon4[1], latlon4[0]],
-                [latlon1[1], latlon1[0]],
+                [coordinates[0][0][0], coordinates[0][0][1]],
+                [coordinates[0][1][0], coordinates[0][1][1]],
+                [coordinates[0][2][0], coordinates[0][2][1]],
+                [coordinates[0][3][0], coordinates[0][3][1]],
+                [coordinates[0][4][0], coordinates[0][4][1]],
               ],
             ],
           },
