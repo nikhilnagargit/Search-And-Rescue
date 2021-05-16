@@ -1,4 +1,4 @@
-import { GET_AREA } from '../actions/types';
+import { GET_AREA, RESET_AREA } from '../actions/types';
 
 const initialState = {
   id: Math.random(),
@@ -18,6 +18,8 @@ function searchAreaReducer(state = initialState, action) {
   switch (action.type) {
     case GET_AREA:
       return action.payload;
+    case RESET_AREA:
+      return initialState;
     default:
       return state;
   }

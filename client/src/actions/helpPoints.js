@@ -7,15 +7,27 @@ export const getHelpPoints =
   (buffer_radius = 10) =>
   async (dispatch) => {
     try {
+      // first reset the existing data
+      await dispatch({
+        type: RESET_HELP_POINTS,
+        payload: {
+          type: 'FeatureCollection',
+          features: [],
+        },
+      });
+
       // convert km to meters
       const radius = buffer_radius * 1000;
-      
+
       // by default it will searh for 10000 meter radius for help points
-      const missing_point = `${store.getState().aircraftReducer.latitude},${
-        store.getState().aircraftReducer.longitude
-      }`;
-      const hospital_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node[amenity=hospital](around:${radius},${missing_point}););out body;`;
-      const roads_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node["highway"](around:${radius},${missing_point});way["highway"](around:${radius},${missing_point});relation["highway"](around:${radius},${missing_point}););out body;>;out skel qt;`;
+      const crash_point =
+        store.getState().searchAreaReducer.geojson.features[0].properties
+          .crashPoint;
+
+      const crash_point_string = `${crash_point[0]},${crash_point[1]}`;
+
+      const hospital_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node[amenity=hospital](around:${radius},${crash_point_string}););out body;`;
+      const roads_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node["highway"](around:${radius},${crash_point_string});way["highway"](around:${radius},${crash_point_string});relation["highway"](around:${radius},${crash_point_string}););out body;>;out skel qt;`;
 
       const response = await axios.get(hospital_query);
       let data = response.data;
