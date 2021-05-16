@@ -4,6 +4,7 @@ export const DELETE_REPORT = 'DELETE_REPORT';
 export const GET_REPORTS = 'GET_REPORTS';
 export const SET_CURRENT_AIRCRAFT = 'SET_CURRENT_AIRCRAFT';
 export const GET_AREA = 'GET_AREA';
+export const RESET_AREA = 'RESET_AREA';
 export const GET_HELP_POINTS = 'GET_HELP_POINTS';
 export const GET_ROADS = 'GET_ROADS';
 export const RESET_HELP_POINTS = 'RESET_HELP_POINTS';

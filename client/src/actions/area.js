@@ -10,7 +10,9 @@ export const getSearchArea =
     const current_aircraft_id = store.getState().aircraftReducer._id;
     console.log(buffer_radius);
     try {
-      const response = await axios.get(`api/searchArea/${current_aircraft_id}`);
+      const response = await axios.get(
+        `api/searchArea/${current_aircraft_id}?side=${buffer_radius}`
+      );
       const area_data = response.data;
 
       dispatch({

@@ -130,7 +130,7 @@ const AreaTypeSelector = (props) => {
             <TextField
               color='secondary'
               id='outlined-basic'
-              label='Buffer Radius (Km)'
+              label='Additional Info Radius(Km)'
               defaultValue='10'
               onChange={handleBufferRadius}
               type='number'

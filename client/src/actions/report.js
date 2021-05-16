@@ -1,5 +1,10 @@
 import { GET_REPORTS } from './types';
-import { SET_CURRENT_AIRCRAFT } from './types';
+import {
+  SET_CURRENT_AIRCRAFT,
+  RESET_HELP_POINTS,
+  RESET_ROADS,
+  RESET_AREA,
+} from './types';
 import axios from 'axios';
 import { showDialog } from './dialog';
 import store from '../store';
@@ -75,6 +80,27 @@ export const setCurrentAircraft = (aircraft) => (dispatch) => {
   dispatch({
     type: SET_CURRENT_AIRCRAFT,
     payload: aircraft,
+  });
+
+  dispatch({
+    type: RESET_AREA,
+    payload: '',
+  });
+
+  dispatch({
+    type: RESET_HELP_POINTS,
+    payload: {
+      type: 'FeatureCollection',
+      features: [],
+    },
+  });
+
+  dispatch({
+    type: RESET_ROADS,
+    payload: {
+      type: 'FeatureCollection',
+      features: [],
+    },
   });
 
   dispatch(

@@ -7,15 +7,26 @@ export const getRoads =
   (buffer_radius = 10) =>
   async (dispatch) => {
     try {
+      // first reset the data
+      await dispatch({
+        type: RESET_ROADS,
+        payload: {
+          type: 'FeatureCollection',
+          features: [],
+        },
+      });
+
       // by default it will searh for 10000 meter radius for roads
-      const missing_point = `${store.getState().aircraftReducer.latitude},${
-        store.getState().aircraftReducer.longitude
-      }`;
+      const crash_point =
+        store.getState().searchAreaReducer.geojson.features[0].properties
+          .crashPoint;
+
+      const crash_point_string = `${crash_point[0]},${crash_point[1]}`;
       // convert radius in meters
       const radius = buffer_radius * 1000;
-      const roads_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(way["highway"](around:${radius},${missing_point});relation["highway"](around:${radius},${missing_point}););out body;>;out skel qt;`;
 
-      console.log(roads_query);
+      const roads_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(way["highway"](around:${radius},${crash_point_string});relation["highway"](around:${radius},${crash_point_string}););out body;>;out skel qt;`;
+
       const response = await axios.get(roads_query);
       let data = response.data;
 

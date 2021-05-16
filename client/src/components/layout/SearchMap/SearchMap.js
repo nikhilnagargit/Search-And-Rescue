@@ -9,7 +9,6 @@ import hospital_pin from '../../../images/hospital_pin.png';
 import station_pin from '../../../images/station_pin.png';
 import L from 'leaflet';
 import { connect } from 'react-redux';
-import './rotateMarker.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -160,7 +159,7 @@ const SearchMap = (props) => {
                 {props.help_points_geojson.features.map((item, index) => {
                   return (
                     <Marker
-                      key={index}
+                      key={item.id}
                       icon={L.icon({
                         iconUrl: getImageFromPoint(item.properties.amenity),
                         iconSize: 30,
@@ -170,15 +169,13 @@ const SearchMap = (props) => {
                         item.geometry.coordinates[0],
                       ]}
                     >
-                      <Popup>
-                        {Object.entries(item.properties).map((entry, index) => {
+                      <Popup key={item.id + 'popup'}>
+                        {Object.entries(item.properties).map((entry, i) => {
                           return (
-                            <>
-                              <span key={index}>
-                                {entry[0]}:{entry[1]}
-                              </span>
+                            <span key={entry[0] + item.id}>
+                              {entry[0]}:{entry[1]}
                               <br />
-                            </>
+                            </span>
                           );
                         })}
                       </Popup>
