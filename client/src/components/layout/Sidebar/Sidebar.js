@@ -2,16 +2,11 @@ import React, { useState } from 'react';
 import './Sidebar.scss';
 import { Fragment } from 'react';
 import saricon from '../../../images/sar.png';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const [sidebarVisible, setsidebarVisible] = useState(true);
-  const [activeTab, setActiveTab] = useState('home');
-  console.log('side bar loaded');
-  const handleClick = (event) => {
-    // event.target.element.className = 'active-tab';
-    setActiveTab(event.target.getAttribute('name'));
-  };
+
   return (
     <Fragment>
       <div className={sidebarVisible ? 'sidebar' : 'sidebar expand'}>
@@ -34,24 +29,22 @@ const Sidebar = () => {
             <ul>
               <Link to='/home'>
                 <li
-                  name='home'
-                  onClick={handleClick}
-                  className={activeTab === 'home' ? 'active-tab' : ''}
+                  className={
+                    props.location.pathname === '/home' ? 'active-tab' : ''
+                  }
                 >
-                  <i name='home' className='fas fa-home fa-lg'></i>
-                  <p name='home'>Home</p>
+                  <i className='fas fa-home fa-lg'></i>
+                  <p>Home</p>
                 </li>
               </Link>
               <Link to='/report'>
                 <li
-                  name='report'
-                  onClick={(e) => {
-                    handleClick(e);
-                  }}
-                  className={activeTab === 'report' ? 'active-tab' : ''}
+                  className={
+                    props.location.pathname === '/report' ? 'active-tab' : ''
+                  }
                 >
-                  <i name='report' className='fas fa-fighter-jet fa-lg'></i>
-                  <p name='report'>Report</p>
+                  <i className='fas fa-fighter-jet fa-lg'></i>
+                  <p>Report</p>
                 </li>
               </Link>
             </ul>
@@ -62,8 +55,11 @@ const Sidebar = () => {
               <Link to='/search-area'>
                 <li
                   name='search-area'
-                  onClick={handleClick}
-                  className={activeTab === 'search-area' ? 'active-tab' : ''}
+                  className={
+                    props.location.pathname === '/search-area'
+                      ? 'active-tab'
+                      : ''
+                  }
                 >
                   <i
                     name='search-area'
@@ -75,8 +71,11 @@ const Sidebar = () => {
               <Link to='/search-pattern'>
                 <li
                   name='search-pattern'
-                  onClick={handleClick}
-                  className={activeTab === 'search-pattern' ? 'active-tab' : ''}
+                  className={
+                    props.location.pathname === '/search-pattern'
+                      ? 'active-tab'
+                      : ''
+                  }
                 >
                   <i
                     name='search-pattern'
@@ -88,8 +87,9 @@ const Sidebar = () => {
               <Link to='/results'>
                 <li
                   name='results'
-                  onClick={handleClick}
-                  className={activeTab === 'results' ? 'active-tab' : ''}
+                  className={
+                    props.location.pathname === '/results' ? 'active-tab' : ''
+                  }
                 >
                   <i name='results' className='fas fa-poll fa-lg'></i>
                   <p name='results'>Results</p>
@@ -103,8 +103,9 @@ const Sidebar = () => {
               <Link to='/alert'>
                 <li
                   name='alert'
-                  onClick={handleClick}
-                  className={activeTab === 'alert' ? 'active-tab' : ''}
+                  className={
+                    props.location.pathname === '/alert' ? 'active-tab' : ''
+                  }
                 >
                   <i
                     name='alert'
@@ -116,8 +117,9 @@ const Sidebar = () => {
               <Link to='/aboutUs'>
                 <li
                   name='aboutUs'
-                  onClick={handleClick}
-                  className={activeTab === 'aboutUs' ? 'active-tab' : ''}
+                  className={
+                    props.location.pathname === '/aboutUs' ? 'active-tab' : ''
+                  }
                 >
                   <i name='aboutUs' className='fas fa-users fa-lg'></i>
                   <p name='aboutUs'>About us</p>
@@ -131,4 +133,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default withRouter(Sidebar);
