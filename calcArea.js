@@ -6,7 +6,7 @@ exports.calcDistance = function (altitude, velocity) {
   return velocity * Math.sqrt(altitude / 4.9);
 };
 
-exports.calcSquareJson = function (newLatLon, side, direction) {
+exports.calcSquareJson = function (newLatLon, side, direction, cellSide) {
   side = side / 100.0;
 
   let latlon1 = [newLatLon[0] + side, newLatLon[1] + side / 2];
@@ -40,7 +40,6 @@ exports.calcSquareJson = function (newLatLon, side, direction) {
 
   var bigRec = turf.envelope(features);
 
-  let cellSide = 2;
   let squareGrid = turf.squareGrid(bigRec.bbox, cellSide);
 
   let filteredGrid = {
@@ -49,13 +48,10 @@ exports.calcSquareJson = function (newLatLon, side, direction) {
   };
   filteredGrid.features = squareGrid.features.filter(obj => {
     let poly2 = turf.polygon(obj.geometry.coordinates);
+    let centroid = turf.centroid(poly2);
 
-    let intersection = turf.intersect(poly, poly2);
-    if (intersection == null) return false;
-    return true;
+    return turf.booleanPointInPolygon(centroid, rotatedPoly);
   });
-
-  //console.log(filteredGrid);
 
   return {
     geojson: {

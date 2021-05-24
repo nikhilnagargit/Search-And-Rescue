@@ -8,13 +8,14 @@ const router = express.Router();
 //@access Public
 router.get('/:id', async (req, res) => {
   let side = req.query.side;
+  let gridSide = req.query.gridSide;
   let plane = await Airplane.findById(req.params.id);
   let { latitude, longitude, direction, velocity, altitude } = plane;
   let distance = calcDistance(altitude, velocity);
   let newLatLon = calcLatLon(latitude, longitude, direction, distance);
 
   //make a geojson for new latitude and longitude
-  let sqJson = calcSquareJson(newLatLon, side, direction);
+  let sqJson = calcSquareJson(newLatLon, side, direction, gridSide);
   res.status(201).json(sqJson);
 });
 
