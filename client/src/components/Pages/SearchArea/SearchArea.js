@@ -12,15 +12,10 @@ import { connect } from 'react-redux';
 import SearchMap from '../../layout/SearchMap/SearchMap';
 import AreaTypeSelector from '../../layout/AreaTypeSelector/AreaTypeSelector';
 import { getSearchArea } from '../../../actions/area.js';
+import { useState } from 'react';
 const mapStateToProps = (state) => {
   return {
     areaData: state.searchAreaReducer,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getSearchArea: () => dispatch(getSearchArea()),
   };
 };
 
@@ -35,7 +30,7 @@ const SearchArea = (props) => {
       <div className='middle'>
         {/* pass down the area's data and geojson as prop */}
 
-        <SearchMap />
+        <SearchMap key={props.areaData.geojson.features[0].id} />
       </div>
 
       {/* show additional information on right side of the page */}
@@ -91,4 +86,4 @@ const SearchArea = (props) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);
+export default connect(mapStateToProps, { getSearchArea })(SearchArea);

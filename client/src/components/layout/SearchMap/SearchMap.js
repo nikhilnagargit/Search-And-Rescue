@@ -3,10 +3,11 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
 import default_pin from '../../../images/default_pin.png';
-import { GeoJSON, LayersControl, LayerGroup } from 'react-leaflet';
+import { GeoJSON, LayersControl, LayerGroup, Polyline } from 'react-leaflet';
 import Animate from 'leaflet.animatedmarker/src/AnimatedMarker';
 import hospital_pin from '../../../images/hospital_pin.png';
 import station_pin from '../../../images/station_pin.png';
+import centerpointicon from '../../../images/rec.png';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 
@@ -109,7 +110,46 @@ const SearchMap = (props) => {
         {/* layer, which shows search area */}
 
         <LayersControl.Overlay name='Search Area Layer' checked>
-          <GeoJSON key={props.areaData.id} data={props.areaData.geojson} />
+          <GeoJSON
+            data={props.areaData.geojson}
+            style={{
+              fillColor: 'orange',
+              fillOpacity: 0.1,
+              color: 'purple',
+              weight: 1,
+            }}
+          />
+          {props.areaData.geojson.features[0].center ? (
+            <LayerGroup>
+              <Marker
+                key={props.areaData.geojson.features[0].id}
+                icon={L.icon({
+                  iconUrl: centerpointicon,
+                  iconSize: 15,
+                })}
+                position={props.areaData.geojson.features[0].center}
+              >
+                <Popup key={props.areaData.geojson.features[0].id + 'popup'}>
+                  center of search area -{' '}
+                  {props.areaData.geojson.features[0].properties.crashPoint}
+                </Popup>
+              </Marker>
+
+              <Polyline
+                pathOptions={{
+                  color: 'grey',
+                  dashArray: '4, 10',
+                  dashOffset: '0',
+                }}
+                positions={[
+                  [props.aircraft.latitude, props.aircraft.longitude],
+                  props.areaData.geojson.features[0].center,
+                ]}
+              />
+            </LayerGroup>
+          ) : (
+            ''
+          )}
         </LayersControl.Overlay>
 
         {/* aircraft and its popup layer */}
