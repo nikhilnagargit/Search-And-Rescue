@@ -24,6 +24,34 @@ exports.calcSquareJson = function (newLatLon, side, direction) {
 
   const { coordinates } = rotatedPoly.geometry;
 
+  // let bbox = [coordinates[0][0][1], coordinates[0][2][0], coordinates[0][2][1], coordinates[0][0][0]];  // [minX, minY, maxX, maxY]
+
+  var features = turf.featureCollection([
+    turf.point(coordinates[0][0], { "name": "A" }),
+    turf.point(coordinates[0][1], { "name": "B" }),
+    turf.point(coordinates[0][2], { "name": "C" }),
+    turf.point(coordinates[0][3], { "name": "D" }),
+  ]);
+
+  var bigRec = turf.envelope(features);
+
+  let cellSide = 2;
+  let squareGrid = turf.squareGrid(bigRec.bbox, cellSide);
+
+  let filteredGrid = {
+    type: 'FeatureCollection',
+    features: []
+  };
+  filteredGrid.features = squareGrid.features.filter(obj => {
+    let poly2 = turf.polygon(obj.geometry.coordinates);
+
+    let intersection = turf.intersect(poly, poly2);
+    if (intersection == null) return false;
+    return true;
+  });
+
+  //console.log(filteredGrid);
+
   return {
     geojson: {
       type: 'FeatureCollection',
@@ -52,6 +80,7 @@ exports.calcSquareJson = function (newLatLon, side, direction) {
         },
       ],
     },
+    filteredGrid,
   };
 };
 
