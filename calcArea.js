@@ -8,16 +8,21 @@ exports.calcDistance = function (altitude, velocity) {
 
 exports.calcSquareJson = function (newLatLon, side, direction) {
   side = side / 100.0;
+
   let latlon1 = [newLatLon[0] + side, newLatLon[1] + side / 2];
   let latlon2 = [newLatLon[0] + side, newLatLon[1] - side / 2];
   let latlon3 = [newLatLon[0] - side, newLatLon[1] - side / 2];
   let latlon4 = [newLatLon[0] - side, newLatLon[1] + side / 2];
 
-  let poly = turf.polygon([[[latlon1[1], latlon1[0]],
-  [latlon2[1], latlon2[0]],
-  [latlon3[1], latlon3[0]],
-  [latlon4[1], latlon4[0]],
-  [latlon1[1], latlon1[0]]]]);
+  let poly = turf.polygon([
+    [
+      [latlon1[1], latlon1[0]],
+      [latlon2[1], latlon2[0]],
+      [latlon3[1], latlon3[0]],
+      [latlon4[1], latlon4[0]],
+      [latlon1[1], latlon1[0]],
+    ],
+  ]);
   let options = { pivot: [newLatLon[1], newLatLon[0]] };
   let rotatedPoly = turf.transformRotate(poly, direction, options);
   let area = turf.area(poly) / 1000000;
@@ -58,12 +63,16 @@ exports.calcSquareJson = function (newLatLon, side, direction) {
       features: [
         {
           type: 'Feature',
+          id: Math.random(),
+          center: [newLatLon[0].toPrecision(8), newLatLon[1].toPrecision(8)],
+
           properties: {
             type: 'land',
             area: area.toFixed(2) + ' sq km',
             shape: 'rectangle',
             description: 'this area is very dangerous.',
-            crashPoint: newLatLon
+            crashPoint:
+              newLatLon[0].toPrecision(8) + ' , ' + newLatLon[1].toPrecision(8),
           },
           geometry: {
             type: 'Polygon',

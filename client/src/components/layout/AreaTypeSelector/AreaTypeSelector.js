@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
 import chart from '../../../images/chart.png';
+import radius from '../../../images/radius.png';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import { connect } from 'react-redux';
@@ -15,47 +16,64 @@ import './AreaTypeSelector.scss';
 import { FormGroup } from '@material-ui/core';
 import { getRoads, resetRoads } from '../../../actions/roads';
 import { getHelpPoints, resetHelpPoints } from '../../../actions/helpPoints';
+import {
+  setBufferDistance,
+  setBufferRadius,
+  setAdditionalPointsCheckboxes,
+} from '../../../actions/general';
+
+const mapStateToProps = (state) => {
+  return {
+    bufferRadius: state.generalReducer.buffer_radius,
+    bufferDistance: state.generalReducer.buffer_distance,
+    additionalPointsCheckboxes:
+      state.generalReducer.additional_points_checkboxes,
+  };
+};
 
 const AreaTypeSelector = (props) => {
   const [value, setValue] = React.useState('circle');
-  const [additionalPointsCheckboxes, setAdditionalPointsCheckboxes] =
-    React.useState({ roads: false, hospitals: false, others: false });
-  const [bufferRadius, setBufferRadius] = React.useState(10);
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   const handleCheckBox = (event) => {
-    setAdditionalPointsCheckboxes({
-      ...additionalPointsCheckboxes,
+    props.setAdditionalPointsCheckboxes({
+      ...props.additionalPointsCheckboxes,
       [event.target.name]: event.target.checked,
     });
   };
 
   const handleBufferRadius = (event) => {
-    setBufferRadius(event.target.value);
+    props.setBufferRadius(event.target.value);
   };
+
+  const handleBufferDistance = (event) => {
+    props.setBufferDistance(event.target.value);
+  };
+
   // use effect, to fetch the data , when checkbox state is updated
+
   useEffect(() => {
-    if (additionalPointsCheckboxes.hospitals) {
-      props.getHelpPoints(bufferRadius);
+    if (props.additionalPointsCheckboxes.hospitals) {
+      props.getHelpPoints();
     } else {
       props.resetHelpPoints();
     }
-  }, [additionalPointsCheckboxes.hospitals, props, bufferRadius]);
+  }, [props.additionalPointsCheckboxes.hospitals, props]);
   useEffect(() => {
-    if (additionalPointsCheckboxes.roads) {
-      props.getRoads(bufferRadius);
+    if (props.additionalPointsCheckboxes.roads) {
+      props.getRoads();
     } else {
       props.resetRoads();
     }
-  }, [additionalPointsCheckboxes.roads, props, bufferRadius]);
+  }, [props.additionalPointsCheckboxes.roads, props]);
   useEffect(() => {
-    if (additionalPointsCheckboxes.others) {
+    if (props.additionalPointsCheckboxes.others) {
       console.log('others called');
     }
-  }, [additionalPointsCheckboxes.others]);
+  }, [props.additionalPointsCheckboxes.others]);
 
   return (
     <div className='areatypeselector'>
@@ -90,6 +108,7 @@ const AreaTypeSelector = (props) => {
                 name='roads'
                 color='secondary'
                 onChange={handleCheckBox}
+                checked={props.additionalPointsCheckboxes.roads}
               />
             }
             label='Roads'
@@ -100,6 +119,7 @@ const AreaTypeSelector = (props) => {
                 name='hospitals'
                 color='secondary'
                 onChange={handleCheckBox}
+                checked={props.additionalPointsCheckboxes.hospitals}
               />
             }
             label='Hospitals'
@@ -110,6 +130,7 @@ const AreaTypeSelector = (props) => {
                 name='others'
                 color='secondary'
                 onChange={handleCheckBox}
+                checked={props.additionalPointsCheckboxes.others}
               />
             }
             label='Others'
@@ -118,6 +139,25 @@ const AreaTypeSelector = (props) => {
       </FormControl>
 
       <FormControl className='buffer'>
+        <Grid container spacing={1} alignItems='flex-end'>
+          <Grid item>
+            <img
+              src={radius}
+              alt='x'
+              style={{ width: '2rem', height: '2rem' }}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              color='secondary'
+              id='outlined-basic'
+              label='Helper Data Radius(Km)'
+              defaultValue={props.bufferRadius}
+              onChange={handleBufferRadius}
+              type='number'
+            />
+          </Grid>
+        </Grid>
         <Grid container spacing={1} alignItems='flex-end'>
           <Grid item>
             <img
@@ -130,9 +170,9 @@ const AreaTypeSelector = (props) => {
             <TextField
               color='secondary'
               id='outlined-basic'
-              label='Additional Info Radius(Km)'
-              defaultValue='10'
-              onChange={handleBufferRadius}
+              label='SearchArea Buffer(Km)'
+              defaultValue={props.bufferDistance}
+              onChange={handleBufferDistance}
               type='number'
             />
           </Grid>
@@ -142,9 +182,12 @@ const AreaTypeSelector = (props) => {
   );
 };
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   getRoads,
   getHelpPoints,
-  resetHelpPoints,
   resetRoads,
+  resetHelpPoints,
+  setBufferRadius,
+  setBufferDistance,
+  setAdditionalPointsCheckboxes,
 })(AreaTypeSelector);
