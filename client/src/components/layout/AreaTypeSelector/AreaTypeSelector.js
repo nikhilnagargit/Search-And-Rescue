@@ -83,7 +83,7 @@ const AreaTypeSelector = (props) => {
   }, [props.additionalPointsCheckboxes.others]);
 
   return (
-    <Grid container className='areatypeselector' alignItems='center'>
+    <Grid container className='areatypeselector'>
       <Grid item xs={4} className='main-item'>
         <FormControl component='div'>
           <FormLabel component='legend'>Select Search Area Type</FormLabel>
@@ -171,6 +171,7 @@ const AreaTypeSelector = (props) => {
           />
         </Grid>
       </Grid>
+
       <Grid
         container
         item
@@ -198,7 +199,14 @@ const AreaTypeSelector = (props) => {
         </Grid>
       </Grid>
 
-      <Grid container item xs={4} className='main-item' alignItems='center'>
+      <Grid
+        container
+        item
+        xs={4}
+        spacing={1}
+        className='main-item'
+        alignItems='center'
+      >
         <Grid item>
           <img src={chart} alt='x' style={{ width: '2rem', height: '2rem' }} />
         </Grid>

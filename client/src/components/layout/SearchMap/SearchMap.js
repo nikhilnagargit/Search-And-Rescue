@@ -105,7 +105,7 @@ const SearchMap = (props) => {
       zoom={12}
     >
       {/* to access the map by useMap hook, we can access map directly and use it as normal leaflet map */}
-      <InteractWithMap></InteractWithMap>
+      {/* <InteractWithMap></InteractWithMap> */}
 
       <LayersControl position='topright'>
         {/* set the base layer option 1 */}
