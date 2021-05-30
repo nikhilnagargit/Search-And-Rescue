@@ -1,5 +1,5 @@
 const express = require('express');
-const { calcDistance, calcLatLon, calcSquareJson, calcFacilities } = require('../../calcArea');
+const { calcDistance, calcLatLon, calcSquareJson } = require('../../calcArea');
 const Airplane = require('../../models/Airplane');
 const router = express.Router();
 

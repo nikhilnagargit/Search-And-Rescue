@@ -6,6 +6,47 @@ exports.calcDistance = function (altitude, velocity) {
   return velocity * Math.sqrt(altitude / 4.9);
 };
 
+function spiralMotion(cord, len) {
+  let distance = len, count = 0, point, list = [];
+  let dest = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'Point',
+      coordinates: [cord[1], cord[0]]
+    }
+  };
+  while (true) {
+    count++;
+    if (count == 5) break;
+
+    //1
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, distance, 0); // 0 degree for North
+
+    //2
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, distance, 90); // 90 degree for East
+
+    distance += len;
+    //3
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, distance, 180); // 180 degree for South
+
+    //4
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, distance, -90); // -90 degree for West
+
+    distance += len;
+  }
+
+  return list;
+}
+
 exports.calcSquareJson = function (newLatLon, side, direction, cellSide) {
   side = side / 100.0;
 
@@ -37,6 +78,9 @@ exports.calcSquareJson = function (newLatLon, side, direction, cellSide) {
     turf.point(coordinates[0][2], { name: 'C' }),
     turf.point(coordinates[0][3], { name: 'D' }),
   ]);
+
+  // let list = spiralMotion(newLatLon, 1);
+  // console.log(list);
 
   var bigRec = turf.envelope(features);
 
