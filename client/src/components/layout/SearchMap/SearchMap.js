@@ -3,15 +3,7 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
 import default_pin from '../../../images/default_pin.png';
-import {
-  GeoJSON,
-  LayersControl,
-  LayerGroup,
-  Polyline,
-  Circle,
-  Polygon,
-  Rectangle,
-} from 'react-leaflet';
+import { GeoJSON, LayersControl, LayerGroup, Polyline } from 'react-leaflet';
 import Animate from 'leaflet.animatedmarker/src/AnimatedMarker';
 import hospital_pin from '../../../images/hospital_pin.png';
 import station_pin from '../../../images/station_pin.png';
