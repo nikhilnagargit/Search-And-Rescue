@@ -100,6 +100,22 @@ const Sidebar = (props) => {
           <div className='section'>
             <p className='section-header'>Extras</p>
             <ul>
+              <Link to='/rescue-teams'>
+                <li
+                  name='Rescue Teams'
+                  className={
+                    props.location.pathname === '/rescue-teams'
+                      ? 'active-tab'
+                      : ''
+                  }
+                >
+                  <i
+                    name='rescue-teams'
+                    className='fas fa-helicopter fa-lg'
+                  ></i>
+                  <p name='rescue-teams'>Rescue Teams</p>
+                </li>
+              </Link>
               <Link to='/alert'>
                 <li
                   name='alert'
