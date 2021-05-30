@@ -2,11 +2,13 @@ import {
   SET_BUFFER_RADIUS,
   SET_BUFFER_DISTANCE,
   SET_ADDITIONAL_POINTS_CHECKBOXES,
+  SET_SUBAREA_SIDE,
 } from '../actions/types';
 
 const initialState = {
   buffer_radius: 10,
   buffer_distance: 10,
+  subarea_side: 4,
   additional_points_checkboxes: {
     roads: false,
     hospitals: false,
@@ -20,6 +22,8 @@ function generalReducer(state = initialState, action) {
       return { ...state, buffer_radius: action.payload };
     case SET_BUFFER_DISTANCE:
       return { ...state, buffer_distance: action.payload };
+    case SET_SUBAREA_SIDE:
+      return { ...state, subarea_side: action.payload };
     case SET_ADDITIONAL_POINTS_CHECKBOXES:
       return { ...state, additional_points_checkboxes: action.payload };
     default:

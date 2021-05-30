@@ -3,11 +3,22 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
 import default_pin from '../../../images/default_pin.png';
-import { GeoJSON, LayersControl, LayerGroup, Polyline } from 'react-leaflet';
+import {
+  GeoJSON,
+  LayersControl,
+  LayerGroup,
+  Polyline,
+  Circle,
+  Polygon,
+  Rectangle,
+} from 'react-leaflet';
 import Animate from 'leaflet.animatedmarker/src/AnimatedMarker';
 import hospital_pin from '../../../images/hospital_pin.png';
 import station_pin from '../../../images/station_pin.png';
 import centerpointicon from '../../../images/rec.png';
+import drone from '../../../images/drone.png';
+import fighter from '../../../images/fighter.png';
+import helicopter from '../../../images/helicopter.png';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 
@@ -109,47 +120,104 @@ const SearchMap = (props) => {
 
         {/* layer, which shows search area */}
 
-        <LayersControl.Overlay name='Search Area Layer' checked>
-          <GeoJSON
-            data={props.areaData.geojson}
-            style={{
-              fillColor: 'orange',
-              fillOpacity: 0.1,
-              color: 'purple',
-              weight: 1,
-            }}
-          />
-          {props.areaData.geojson.features[0].center ? (
-            <LayerGroup>
-              <Marker
-                key={props.areaData.geojson.features[0].id}
-                icon={L.icon({
-                  iconUrl: centerpointicon,
-                  iconSize: 15,
-                })}
-                position={props.areaData.geojson.features[0].center}
-              >
-                <Popup key={props.areaData.geojson.features[0].id + 'popup'}>
-                  center of search area -{' '}
-                  {props.areaData.geojson.features[0].properties.crashPoint}
-                </Popup>
-              </Marker>
+        <LayersControl.Overlay name='Grid' checked>
+          <LayerGroup>
+            {props.areaData.filteredGrid.features.map((item) => {
+              return (
+                <GeoJSON
+                  data={item}
+                  style={{ weight: 0.6, fillOpacity: 0.1 }}
+                />
+              );
+            })}
+          </LayerGroup>
+          <LayerGroup>
+            {props.areaData.filteredGrid.features.map((item, index) => {
+              if (item.rescue_team) {
+                return (
+                  <Marker
+                    key={index}
+                    icon={L.icon({
+                      iconUrl:
+                        item.rescue_team === 'helicopterA'
+                          ? fighter
+                          : item.rescue_team === 'helicopterB'
+                          ? helicopter
+                          : drone,
+                      iconSize: 30,
+                    })}
+                    position={[
+                      (item.geometry.coordinates[0][0][1] +
+                        item.geometry.coordinates[0][2][1]) /
+                        2,
+                      (item.geometry.coordinates[0][0][0] +
+                        item.geometry.coordinates[0][2][0]) /
+                        2,
+                    ]}
+                  ></Marker>
+                );
+              }
+              return '';
+            })}
+          </LayerGroup>
+        </LayersControl.Overlay>
 
-              <Polyline
-                pathOptions={{
-                  color: 'grey',
-                  dashArray: '4, 10',
-                  dashOffset: '0',
-                }}
-                positions={[
-                  [props.aircraft.latitude, props.aircraft.longitude],
-                  props.areaData.geojson.features[0].center,
-                ]}
+        {/* <LayersControl.Overlay name='Grid' checked>
+          {props.areaData.filteredGrid.features.map((item) => {
+            console.log(item.geometry.coordinates);
+            return (
+              <Polygon
+                positions={item.geometry.coordinates[0].map((item) => {
+                  return [item[1], item[0]];
+                })}
               />
-            </LayerGroup>
-          ) : (
-            ''
-          )}
+            );
+          })}
+        </LayersControl.Overlay> */}
+
+        <LayersControl.Overlay name='Search Area Layer' checked>
+          <LayerGroup>
+            <GeoJSON
+              data={props.areaData.geojson}
+              style={{
+                fillColor: 'orange',
+                fillOpacity: 0.1,
+                color: 'purple',
+                weight: 1,
+              }}
+            />
+            {props.areaData.geojson.features[0].center ? (
+              <LayerGroup>
+                <Marker
+                  key={props.areaData.geojson.features[0].id}
+                  icon={L.icon({
+                    iconUrl: centerpointicon,
+                    iconSize: 25,
+                  })}
+                  position={props.areaData.geojson.features[0].center}
+                >
+                  <Popup key={props.areaData.geojson.features[0].id + 'popup'}>
+                    Center -{' '}
+                    {props.areaData.geojson.features[0].properties.crashPoint}
+                  </Popup>
+                </Marker>
+
+                <Polyline
+                  pathOptions={{
+                    color: 'grey',
+                    dashArray: '4, 10',
+                    dashOffset: '0',
+                  }}
+                  positions={[
+                    [props.aircraft.latitude, props.aircraft.longitude],
+                    props.areaData.geojson.features[0].center,
+                  ]}
+                />
+              </LayerGroup>
+            ) : (
+              ''
+            )}
+          </LayerGroup>
         </LayersControl.Overlay>
 
         {/* aircraft and its popup layer */}

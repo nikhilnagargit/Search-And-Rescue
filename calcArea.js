@@ -73,10 +73,10 @@ exports.calcSquareJson = function (newLatLon, side, direction, cellSide) {
   // let bbox = [coordinates[0][0][1], coordinates[0][2][0], coordinates[0][2][1], coordinates[0][0][0]];  // [minX, minY, maxX, maxY]
 
   var features = turf.featureCollection([
-    turf.point(coordinates[0][0], { "name": "A" }),
-    turf.point(coordinates[0][1], { "name": "B" }),
-    turf.point(coordinates[0][2], { "name": "C" }),
-    turf.point(coordinates[0][3], { "name": "D" }),
+    turf.point(coordinates[0][0], { name: 'A' }),
+    turf.point(coordinates[0][1], { name: 'B' }),
+    turf.point(coordinates[0][2], { name: 'C' }),
+    turf.point(coordinates[0][3], { name: 'D' }),
   ]);
 
   // let list = spiralMotion(newLatLon, 1);
@@ -88,9 +88,9 @@ exports.calcSquareJson = function (newLatLon, side, direction, cellSide) {
 
   let filteredGrid = {
     type: 'FeatureCollection',
-    features: []
+    features: [],
   };
-  filteredGrid.features = squareGrid.features.filter(obj => {
+  filteredGrid.features = squareGrid.features.filter((obj) => {
     let poly2 = turf.polygon(obj.geometry.coordinates);
     let centroid = turf.centroid(poly2);
 

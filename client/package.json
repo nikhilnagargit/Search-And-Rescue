@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "leaflet": "^1.7.1",
+    "leaflet-contextmenu": "^1.4.0",
     "leaflet.animatedmarker": "^1.0.0",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
