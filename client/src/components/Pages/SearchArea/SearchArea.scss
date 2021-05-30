@@ -22,7 +22,7 @@
 
     .table {
       width: auto;
-      height: 80%;
+      height: 85%;
       margin: 0.25rem;
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -39,10 +39,11 @@
       flex-wrap: wrap;
       justify-content: space-around;
       height: auto;
-      button {
+      .button {
         height: auto;
         width: auto;
         margin: 0.5rem;
+        text-decoration: none;
       }
     }
   }

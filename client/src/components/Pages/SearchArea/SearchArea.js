@@ -1,5 +1,6 @@
 import React from 'react';
 import './SearchArea.scss';
+import { Link } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -77,9 +78,12 @@ const SearchArea = (props) => {
           >
             Find Area
           </Button>
-          <Button variant='contained' color='secondary' size='small'>
-            Proceed to Pattern
-          </Button>
+
+          <Link to='search-pattern' className='button'>
+            <Button variant='contained' color='secondary' size='small'>
+              Proceed to Pattern
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

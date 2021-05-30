@@ -13,6 +13,64 @@
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
+    <!-- include leaflet-contextmenu css -->
+    <style>
+      .leaflet-contextmenu {
+        display: none;
+        box-shadow: 0 1px 7px rgba(0, 0, 0, 0.4);
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        padding: 4px 0;
+        background-color: #fff;
+        cursor: default;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      .leaflet-contextmenu a.leaflet-contextmenu-item {
+        display: block;
+        color: #222;
+        font-size: 12px;
+        line-height: 20px;
+        text-decoration: none;
+        padding: 0 12px;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        cursor: default;
+        outline: none;
+      }
+
+      .leaflet-contextmenu a.leaflet-contextmenu-item-disabled {
+        opacity: 0.5;
+      }
+
+      .leaflet-contextmenu a.leaflet-contextmenu-item.over {
+        background-color: #f4f4f4;
+        border-top: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .leaflet-contextmenu a.leaflet-contextmenu-item-disabled.over {
+        background-color: inherit;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+      }
+
+      .leaflet-contextmenu-icon {
+        margin: 2px 8px 0 0;
+        width: 16px;
+        height: 16px;
+        float: left;
+        border: 0;
+      }
+
+      .leaflet-contextmenu-separator {
+        border-bottom: 1px solid #ccc;
+        margin: 5px 0;
+      }
+    </style>
+
     <!-- font awsome cdn -->
     <script
       src="https://kit.fontawesome.com/65e08dad36.js"
@@ -32,8 +90,6 @@
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin=""
     />
-
-    <!-- include the moving marker plugin for leaflet -->
 
     <title>SAR App</title>
   </head>
