@@ -2,7 +2,12 @@ import './SearchPattern.scss';
 import React from 'react';
 import SearchMap from '../../layout/SearchMap/SearchMap';
 import { connect } from 'react-redux';
-import { getSearchArea, assignRescueTeam } from '../../../actions/area';
+import {
+  getSearchArea,
+  assignRescueTeam,
+  addSearchPattern,
+} from '../../../actions/area';
+import { setLoader, removeLoader } from '../../../actions/general';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -23,9 +28,12 @@ import Select from '@material-ui/core/Select';
 import drone from '../../../images/drone.png';
 import helicopter from '../../../images/helicopter.png';
 import fighter from '../../../images/fighter.png';
+import axios from 'axios';
+import Loader from '../../layout/Loader/Loader';
 const mapStateToProps = (state) => {
   return {
     areaData: state.searchAreaReducer,
+    loader: state.generalReducer.loader,
   };
 };
 
@@ -45,149 +53,172 @@ const useStyles = makeStyles({
     marginTop: '0.4rem',
   },
 });
+
 const SearchPattern = (props) => {
   const classes = useStyles();
 
   const handleChange = (event, index) => {
-    console.log('I am from handle change', index);
     props.assignRescueTeam(index, event.target.value);
   };
 
-  return (
-    <div className='search-pattern-main'>
-      <Grid container className='top'>
-        <Grid
-          container
-          item
-          xs={6}
-          justify='space-around'
-          alignItems='center'
-          className='icons-container'
-        >
-          <Grid item xs={2}>
-            <Badge
-              badgeContent={
-                props.areaData.filteredGrid.features.filter(
-                  (item) => item.rescue_team === 'helicopterA'
-                ).length
-              }
-              color='secondary'
-            >
-              <img src={fighter} width='60' height='60' alt='' />
-            </Badge>
-          </Grid>
+  const fetchPatterns = () => {
+    async function fetchIt() {
+      try {
+        props.setLoader();
+        const data = await axios.post('api/searchPattern', props.areaData);
+        props.addSearchPattern(data.data);
+        props.removeLoader();
+      } catch (err) {
+        props.removeLoader();
+        console.log(err.message);
+      }
+    }
+    fetchIt();
+  };
 
-          <Grid item xs={2}>
-            <Badge
-              badgeContent={
-                props.areaData.filteredGrid.features.filter(
-                  (item) => item.rescue_team === 'helicopterB'
-                ).length
-              }
-              color='primary'
-            >
-              <img src={helicopter} width='60' height='60' alt='' />
-            </Badge>
-          </Grid>
-
-          <Grid item xs={2}>
-            <Badge
-              badgeContent={
-                props.areaData.filteredGrid.features.filter(
-                  (item) => item.rescue_team === 'drone'
-                ).length
-              }
-              color='error'
-            >
-              <img src={drone} width='60' height='60' alt='' />
-            </Badge>
-          </Grid>
-        </Grid>
-        <Grid item container xs={6} alignItems='center'>
-          abcd
-        </Grid>
-      </Grid>
-      <div className='middle'>
-        <SearchMap areaData={props.areaData} />
-      </div>
-
-      <div className='side'>
-        <Paper className={classes.root}>
-          <TableContainer className={classes.container}>
-            <Table
-              stickyHeader
-              size='small'
-              aria-label='sticky table'
-              className='table'
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell align='center'>SubArea Index</TableCell>
-
-                  <TableCell align='center'>Team</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {props.areaData.filteredGrid.features.map((row, num) => {
-                  return (
-                    <TableRow hover key={num + '0'}>
-                      <TableCell align='center' key={num + '1'}>
-                        {num}
-                      </TableCell>
-                      <TableCell align='center' key={num + '2'}>
-                        <FormControl
-                          align='center'
-                          className={classes.formControl}
-                          key={num + '3'}
-                        >
-                          <Select
-                            value={row.rescue_team ? row.rescue_team : ''}
-                            onChange={(event) => {
-                              handleChange(event, num);
-                            }}
-                            className={classes.selectEmpty}
-                            inputProps={{ 'aria-label': 'select team' }}
-                          >
-                            <MenuItem value=''>
-                              <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={'helicopterA'}>
-                              Helecopter A
-                            </MenuItem>
-                            <MenuItem value={'helicopterB'}>
-                              Helecopter B
-                            </MenuItem>
-                            <MenuItem value={'drone'}>Drone</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
-        <div className='button-container'>
-          <Button
-            variant='contained'
-            color='primary'
-            size='small'
-            onClick={() => {
-              alert('start searcing');
-            }}
+  if (props.loader === false) {
+    return (
+      <div className='search-pattern-main'>
+        <Grid container className='top'>
+          <Grid
+            container
+            item
+            xs={6}
+            justify='space-around'
+            alignItems='center'
+            className='icons-container'
           >
-            Fetch Pattern
-          </Button>
-          <Button variant='contained' color='secondary' size='small'>
-            Start Patterns
-          </Button>
+            <Grid item xs={2}>
+              <Badge
+                badgeContent={
+                  props.areaData.filteredGrid.features.filter(
+                    (item) => item.rescue_team === 'helicopterA'
+                  ).length
+                }
+                color='secondary'
+              >
+                <img src={fighter} width='60' height='60' alt='' />
+              </Badge>
+            </Grid>
+
+            <Grid item xs={2}>
+              <Badge
+                badgeContent={
+                  props.areaData.filteredGrid.features.filter(
+                    (item) => item.rescue_team === 'helicopterB'
+                  ).length
+                }
+                color='primary'
+              >
+                <img src={helicopter} width='60' height='60' alt='' />
+              </Badge>
+            </Grid>
+
+            <Grid item xs={2}>
+              <Badge
+                badgeContent={
+                  props.areaData.filteredGrid.features.filter(
+                    (item) => item.rescue_team === 'drone'
+                  ).length
+                }
+                color='error'
+              >
+                <img src={drone} width='60' height='60' alt='' />
+              </Badge>
+            </Grid>
+          </Grid>
+          <Grid item container xs={6} alignItems='center'>
+            abcd
+          </Grid>
+        </Grid>
+        <div className='middle'>
+          <SearchMap areaData={props.areaData} />
+        </div>
+
+        <div className='side'>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table
+                stickyHeader
+                size='small'
+                aria-label='sticky table'
+                className='table'
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell align='center'>SubArea Index</TableCell>
+
+                    <TableCell align='center'>Team</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {props.areaData.filteredGrid.features.map((row, num) => {
+                    return (
+                      <TableRow hover key={num + '0'}>
+                        <TableCell align='center' key={num + '1'}>
+                          {num}
+                        </TableCell>
+                        <TableCell align='center' key={num + '2'}>
+                          <FormControl
+                            align='center'
+                            className={classes.formControl}
+                            key={num + '3'}
+                          >
+                            <Select
+                              value={row.rescue_team ? row.rescue_team : ''}
+                              onChange={(event) => {
+                                handleChange(event, num);
+                              }}
+                              className={classes.selectEmpty}
+                              inputProps={{ 'aria-label': 'select team' }}
+                            >
+                              <MenuItem value=''>
+                                <em>None</em>
+                              </MenuItem>
+                              <MenuItem value={'helicopterA'}>
+                                Helecopter A
+                              </MenuItem>
+                              <MenuItem value={'helicopterB'}>
+                                Helecopter B
+                              </MenuItem>
+                              <MenuItem value={'drone'}>Drone</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          <div className='button-container'>
+            <Button
+              variant='contained'
+              color='primary'
+              size='small'
+              onClick={() => {
+                fetchPatterns();
+              }}
+            >
+              Fetch Pattern
+            </Button>
+            <Button variant='contained' color='secondary' size='small'>
+              Start Patterns
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <Loader />;
+  }
 };
 
-export default connect(mapStateToProps, { getSearchArea, assignRescueTeam })(
-  SearchPattern
-);
+export default connect(mapStateToProps, {
+  getSearchArea,
+  assignRescueTeam,
+  addSearchPattern,
+  setLoader,
+  removeLoader,
+})(SearchPattern);

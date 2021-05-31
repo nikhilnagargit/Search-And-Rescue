@@ -1,4 +1,9 @@
-import { ASSIGN_RESCUE_TEAM, GET_AREA, RESET_AREA } from '../actions/types';
+import {
+  ASSIGN_RESCUE_TEAM,
+  GET_AREA,
+  RESET_AREA,
+  ADD_SEARCH_PATTERN,
+} from '../actions/types';
 
 const initialState = {
   id: 'sdf',
@@ -36,6 +41,8 @@ function searchAreaReducer(state = initialState, action) {
       newstate.filteredGrid.features[action.payload.tile_index].rescue_team =
         action.payload.rescue_team;
       return newstate;
+    case ADD_SEARCH_PATTERN:
+      return action.payload;
     default:
       return state;
   }

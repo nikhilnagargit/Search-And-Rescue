@@ -3,9 +3,12 @@ import {
   SET_BUFFER_DISTANCE,
   SET_ADDITIONAL_POINTS_CHECKBOXES,
   SET_SUBAREA_SIDE,
+  SET_LOADER,
+  REMOVE_LOADER,
 } from '../actions/types';
 
 const initialState = {
+  loader: false,
   buffer_radius: 10,
   buffer_distance: 10,
   subarea_side: 4,
@@ -26,6 +29,10 @@ function generalReducer(state = initialState, action) {
       return { ...state, subarea_side: action.payload };
     case SET_ADDITIONAL_POINTS_CHECKBOXES:
       return { ...state, additional_points_checkboxes: action.payload };
+    case SET_LOADER:
+      return { ...state, loader: action.payload };
+    case REMOVE_LOADER:
+      return { ...state, loader: action.payload };
     default:
       return state;
   }

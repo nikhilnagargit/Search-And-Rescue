@@ -1,9 +1,9 @@
 import {
   GET_AREA,
-  RESET_AREA,
-  RESET_HELP_POINTS,
-  RESET_ROADS,
   ASSIGN_RESCUE_TEAM,
+  ADD_SEARCH_PATTERN,
+  SET_LOADER,
+  REMOVE_LOADER,
 } from './types';
 import axios from 'axios';
 import { showDialog } from './dialog';
@@ -15,9 +15,13 @@ export const getSearchArea = () => async (dispatch) => {
   //get current set aircraft id
   const current_aircraft_id = store.getState().aircraftReducer._id;
   try {
+    await dispatch({ type: SET_LOADER, payload: true });
+
     const response = await axios.get(
       `api/searchArea/${current_aircraft_id}?side=${buffer_distance}&gridSide=${subarea_side}`
     );
+
+    await dispatch({ type: REMOVE_LOADER, payload: false });
     const area_data = response.data;
 
     dispatch({
@@ -25,6 +29,7 @@ export const getSearchArea = () => async (dispatch) => {
       payload: area_data,
     });
   } catch (err) {
+    await dispatch({ type: REMOVE_LOADER, payload: false });
     console.log(err.message);
 
     dispatch(
@@ -58,3 +63,23 @@ export const assignRescueTeam =
       );
     }
   };
+
+export const addSearchPattern = (data) => (dispatch) => {
+  try {
+    dispatch({
+      type: ADD_SEARCH_PATTERN,
+      payload: data,
+    });
+  } catch (err) {
+    console.log(err.message);
+    dispatch(
+      showDialog({
+        title:
+          'Oops! Error from server while adding search patterns in search area.',
+        description: err.message,
+        buttontext: 'Ok! Let me check',
+        visible: true,
+      })
+    );
+  }
+};

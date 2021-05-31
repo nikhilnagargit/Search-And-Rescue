@@ -1,19 +1,16 @@
-import { GET_HELP_POINTS, RESET_HELP_POINTS, SHOW_DIALOG } from './types';
+import {
+  GET_HELP_POINTS,
+  REMOVE_LOADER,
+  RESET_HELP_POINTS,
+  SHOW_DIALOG,
+  SET_LOADER,
+} from './types';
 import axios from 'axios';
 import osmtogeojson from 'osmtogeojson';
 import store from '../store';
 
 export const getHelpPoints = () => async (dispatch) => {
   try {
-    // first reset the existing data
-    await dispatch({
-      type: RESET_HELP_POINTS,
-      payload: {
-        type: 'FeatureCollection',
-        features: [],
-      },
-    });
-
     // convert km to meters
     const radius = store.getState().generalReducer.buffer_radius * 1000;
 
