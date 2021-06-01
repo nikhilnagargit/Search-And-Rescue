@@ -47,7 +47,7 @@ Finding the crash site in an aircraft disappearance is most of the problem for t
 <p>
 <img src="https://img.shields.io/badge/Node.js-282C34?logo=node.js&logoColor=339933" alt="Node.js logo" title="Node.js" height="25" />
 &nbsp;
-  <img src="https://img.shields.io/badge/Node.js-282C34?logo=node.js&logoColor=339933" alt="Node.js logo" title="leaflet" height="25" />
+  <img src="https://img.shields.io/badge/leaflet-282C34?logo=leaflet&logoColor=339933" alt="leaflet logo" title="leaflet" height="25" />
 &nbsp;
 <img src="https://img.shields.io/badge/Express-282C34?logo=express&logoColor=FFFFFF" alt="Express.js logo" title="Express.js" height="25" />
   &nbsp;
@@ -59,6 +59,12 @@ Finding the crash site in an aircraft disappearance is most of the problem for t
 &nbsp;
 <img src="https://img.shields.io/badge/React-282C34?logo=react&logoColor=61DAFB" alt="React logo" title="React.js / React Native" height="25" />
   &nbsp;
+  <img src="https://img.shields.io/badge/osmtogeojson-282C34?logo=osmtogeojson&logoColor=339933" alt="osmtogeojson logo" title="osmtogeojson" height="25" />
+&nbsp;
+  <img src="https://img.shields.io/badge/OpenStreetMaps-282C34?logo=OpenStreetMaps&logoColor=339933" alt="OpenStreetMaps logo" title="OpenStreetMaps" height="25" />
+&nbsp;
+  <img src="https://img.shields.io/badge/turf-282C34?logo=turf&logoColor=339933" alt="turf logo" title="turf" height="25" />
+&nbsp;
   <img src="https://img.shields.io/badge/git-282C34?logo=git&logoColor=F05032" alt="git logo" title="git" height="25" />
 &nbsp;
   <img src="https://img.shields.io/badge/MongoDB-282C34?logo=mongodb&logoColor=47A248" alt="MongoDB logo" title="MongoDB" height="25" />
