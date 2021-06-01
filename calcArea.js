@@ -6,35 +6,35 @@ exports.calcDistance = function (altitude, velocity) {
   return velocity * Math.sqrt(altitude / 4.9);
 };
 
-function spiralMotion(cord, len) {
-  let distance = len, count = 0, point, list = [];
-  let dest = {
-    type: 'Feature',
-    properties: {},
-    geometry: {
-      type: 'Point',
-      coordinates: [cord[1], cord[0]]
-    }
-  };
-  while (true) {
-    count++;
-    if (count == 5) break;
+exports.spiralMotion = function (poly, len) {
+  let distance = len, list = [];
+  let grid = turf.polygon(poly);
+  let point = turf.centroid(grid);
+
+  let dest = point;
+  while (turf.booleanPointInPolygon(dest.geometry.coordinates, grid)) {
 
     //1
     point = turf.point(dest.geometry.coordinates);
     list.push(point.geometry.coordinates);
     dest = turf.destination(point, distance, 0); // 0 degree for North
+    if (!turf.booleanPointInPolygon(dest.geometry.coordinates, grid))
+      break;
 
     //2
     point = turf.point(dest.geometry.coordinates);
     list.push(point.geometry.coordinates);
     dest = turf.destination(point, distance, 90); // 90 degree for East
+    if (!turf.booleanPointInPolygon(dest.geometry.coordinates, grid))
+      break;
 
     distance += len;
     //3
     point = turf.point(dest.geometry.coordinates);
     list.push(point.geometry.coordinates);
     dest = turf.destination(point, distance, 180); // 180 degree for South
+    if (!turf.booleanPointInPolygon(dest.geometry.coordinates, grid))
+      break;
 
     //4
     point = turf.point(dest.geometry.coordinates);
@@ -44,7 +44,10 @@ function spiralMotion(cord, len) {
     distance += len;
   }
 
-  return list;
+  return {
+    type: 'Polygon',
+    coordinates: [list]
+  };
 }
 
 exports.calcSquareJson = function (newLatLon, side, direction, cellSide) {
