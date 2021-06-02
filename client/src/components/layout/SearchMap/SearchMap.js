@@ -1,18 +1,17 @@
 import './SearchMap.scss';
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import airplane_pin from '../../../images/airplane_pin.png';
 import default_pin from '../../../images/default_pin.png';
 import { GeoJSON, LayersControl, LayerGroup, Polyline } from 'react-leaflet';
-import Animate from 'leaflet.animatedmarker/src/AnimatedMarker';
+
 import hospital_pin from '../../../images/hospital_pin.png';
 import station_pin from '../../../images/station_pin.png';
 import centerpointicon from '../../../images/rec.png';
-import drone from '../../../images/drone.png';
-import fighter from '../../../images/fighter.png';
-import helicopter from '../../../images/helicopter.png';
+
 import L from 'leaflet';
 import { connect } from 'react-redux';
+import AnimatedMarker from './AnimatedMarker';
 
 const mapStateToProps = (state) => {
   return {
@@ -21,48 +20,6 @@ const mapStateToProps = (state) => {
     help_points_geojson: state.helpPointsReducer,
     roads_geojson: state.roadsReducer,
   };
-};
-
-// helper componemt
-const InteractWithMap = () => {
-  // do whatever want, with leaflet "map"
-  const getPolyline = () => {
-    const list = [
-      [75.83398818969727, 25.18878705643202],
-      [75.82609176635742, 25.141555107671604],
-      [75.88119506835938, 25.136893068683843],
-      [75.88462829589844, 25.181330596649822],
-      [75.84823608398438, 25.1810199009232],
-      [75.84239959716797, 25.150567878227317],
-      [75.86677551269531, 25.14746010148844],
-      [75.87158203125, 25.17107721946786],
-      [75.86042404174805, 25.16921287641151],
-      [75.85819244384766, 25.160978353607337],
-    ];
-
-    const newList = list.map((item) => {
-      return [item[1], item[0]];
-    });
-
-    return newList;
-  };
-
-  const data_line = getPolyline();
-  var line = L.polyline(data_line);
-  var animatedMarker = L.animatedMarker(line.getLatLngs(), {
-    autoStart: true,
-    distance: 3000, // meters
-    interval: 1000, // milliseconds
-    rotateAngle: 45,
-  });
-
-  // use map
-  const map = useMap();
-
-  // add animated marker
-  map.addLayer(animatedMarker);
-
-  return <></>;
 };
 
 // main componant
@@ -110,7 +67,7 @@ const SearchMap = (props) => {
           <TileLayer url={tileurl_option2} />
         </LayersControl.BaseLayer>
 
-        {/* layer, which shows search area */}
+        {/* layer, which shows grid and icons of rescue teams */}
 
         <LayersControl.Overlay name='Grid' checked>
           <LayerGroup>
@@ -123,35 +80,9 @@ const SearchMap = (props) => {
               );
             })}
           </LayerGroup>
-          <LayerGroup>
-            {props.areaData.filteredGrid.features.map((item, index) => {
-              if (item.rescue_team) {
-                return (
-                  <Marker
-                    key={index}
-                    icon={L.icon({
-                      iconUrl:
-                        item.rescue_team === 'helicopterA'
-                          ? fighter
-                          : item.rescue_team === 'helicopterB'
-                          ? helicopter
-                          : drone,
-                      iconSize: 30,
-                    })}
-                    position={[
-                      (item.geometry.coordinates[0][0][1] +
-                        item.geometry.coordinates[0][2][1]) /
-                        2,
-                      (item.geometry.coordinates[0][0][0] +
-                        item.geometry.coordinates[0][2][0]) /
-                        2,
-                    ]}
-                  ></Marker>
-                );
-              }
-              return '';
-            })}
-          </LayerGroup>
+          <AnimatedMarker
+            filteredGrid={props.areaData.filteredGrid}
+          ></AnimatedMarker>
         </LayersControl.Overlay>
 
         {/* <LayersControl.Overlay name='Grid' checked>

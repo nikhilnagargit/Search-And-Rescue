@@ -14,7 +14,7 @@ import SearchMap from '../../layout/SearchMap/SearchMap';
 import AreaTypeSelector from '../../layout/AreaTypeSelector/AreaTypeSelector';
 import { getSearchArea } from '../../../actions/area.js';
 import Loader from '../../layout/Loader/Loader';
-import { useState } from 'react';
+
 const mapStateToProps = (state) => {
   return {
     areaData: state.searchAreaReducer,
@@ -70,17 +70,20 @@ const SearchArea = (props) => {
               </TableBody>
             </Table>
           </TableContainer>
+
           <div className='button-container'>
-            <Button
-              variant='contained'
-              color='primary'
-              size='small'
-              onClick={() => {
-                props.getSearchArea();
-              }}
-            >
-              Find Area
-            </Button>
+            <div className='button'>
+              <Button
+                variant='contained'
+                color='primary'
+                size='small'
+                onClick={() => {
+                  props.getSearchArea();
+                }}
+              >
+                Find Area
+              </Button>
+            </div>
 
             <Link to='search-pattern' className='button'>
               <Button variant='contained' color='secondary' size='small'>
