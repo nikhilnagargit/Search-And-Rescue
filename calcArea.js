@@ -6,6 +6,52 @@ exports.calcDistance = function (altitude, velocity) {
   return velocity * Math.sqrt(altitude / 4.9);
 };
 
+exports.creepyLineMotion = function (poly, len) {
+  let shortLen = len, list = [];
+  let point = turf.point(poly[0][1]);
+  let grid = turf.polygon(poly);
+  let from = turf.point(poly[0][1]);
+  let to = turf.point(poly[0][2]);
+
+  let longLen = turf.distance(from, to);
+
+  let dest = point;
+  while (turf.booleanPointInPolygon(dest.geometry.coordinates, grid)) {
+
+    //1
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, shortLen, 180);
+    if (!turf.booleanPointInPolygon(dest.geometry.coordinates, grid))
+      break;
+
+    //2
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, longLen, 90);
+    if (!turf.booleanPointInPolygon(dest.geometry.coordinates, grid))
+      break;
+
+    //3
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, shortLen, 180);
+    if (!turf.booleanPointInPolygon(dest.geometry.coordinates, grid))
+      break;
+
+    //4
+    point = turf.point(dest.geometry.coordinates);
+    list.push(point.geometry.coordinates);
+    dest = turf.destination(point, longLen, -90);
+
+  }
+
+  return {
+    type: 'Polygon',
+    coordinates: [list]
+  };
+}
+
 exports.spiralMotion = function (poly, len) {
   let distance = len, list = [];
   let grid = turf.polygon(poly);

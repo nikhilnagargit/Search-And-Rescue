@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Rescue = require('../../models/Rescue');
-const { spiralMotion } = require('../../calcArea');
+const { spiralMotion, creepyLineMotion } = require('../../calcArea');
 
 //@route POST api/searchPattern/
 //@desc show the search pattern
