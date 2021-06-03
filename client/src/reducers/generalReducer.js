@@ -11,7 +11,7 @@ const initialState = {
   loader: false,
   buffer_radius: 10,
   buffer_distance: 10,
-  subarea_side: 4,
+  subarea_side: 7,
   additional_points_checkboxes: {
     roads: false,
     hospitals: false,

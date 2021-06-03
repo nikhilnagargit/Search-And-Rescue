@@ -37,6 +37,9 @@
       flex-wrap: wrap;
       justify-content: space-around;
       height: auto;
+      a {
+        text-decoration: none;
+      }
       button {
         height: auto;
         width: auto;
