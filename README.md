@@ -33,6 +33,18 @@ hit and try available algorithm to sweep the search area to find the missing air
 ### 4. Get detailed analysis :
 Get the search and rescue operation results with detailed analysis and information.
 
+## Install and Run
+### To Install Dependencies use :
+
+> npm i <br>
+> cd client <br>
+> npm i <br>
+> cd ..
+
+### To run locally use :
+
+> npm run dev
+
 ## Preview
 
 ![Screenshot (736)](https://user-images.githubusercontent.com/44896376/120094701-99a8a980-c13f-11eb-8909-ba7ec4a53b5f.png)
