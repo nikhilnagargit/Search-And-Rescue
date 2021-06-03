@@ -96,6 +96,18 @@ exports.spiralMotion = function (poly, len) {
   };
 }
 
+exports.addProperties = function (rescueTeam, poly) {
+  let length = turf.length(poly);
+  let time = length / rescueTeam.speed;
+
+  return {
+    speed: rescueTeam.speed,
+    fieldofview: rescueTeam.fieldofview,
+    distance: length,
+    time: time
+  }
+}
+
 exports.calcSquareJson = function (newLatLon, side, direction, cellSide) {
   side = side / 100.0;
 
