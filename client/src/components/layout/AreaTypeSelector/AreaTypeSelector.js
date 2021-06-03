@@ -84,7 +84,7 @@ const AreaTypeSelector = (props) => {
 
   return (
     <Grid container className='areatypeselector'>
-      <Grid item xs={4} className='main-item'>
+      {/* <Grid item xs={4} className='main-item'>
         <FormControl component='div'>
           <FormLabel component='legend'>Select Search Area Type</FormLabel>
           <RadioGroup name='areatype' value={value} onChange={handleChange} row>
@@ -105,7 +105,7 @@ const AreaTypeSelector = (props) => {
             />
           </RadioGroup>
         </FormControl>
-      </Grid>
+      </Grid> */}
 
       <Grid item xs={4} className='main-item'>
         <FormControl component='div' className='checkboxgroup'>

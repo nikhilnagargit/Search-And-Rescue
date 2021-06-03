@@ -2,6 +2,7 @@ import {
   GET_AREA,
   ASSIGN_RESCUE_TEAM,
   ADD_SEARCH_PATTERN,
+  ASSIGN_PATTERN_TYPE,
   SET_LOADER,
   REMOVE_LOADER,
 } from './types';
@@ -43,26 +44,43 @@ export const getSearchArea = () => async (dispatch) => {
   }
 };
 
-export const assignRescueTeam =
-  (tile_index, rescue_team) => async (dispatch) => {
-    try {
-      dispatch({
-        type: ASSIGN_RESCUE_TEAM,
-        payload: { tile_index: tile_index, rescue_team: rescue_team },
-      });
-    } catch (err) {
-      console.log(err.message);
-      dispatch(
-        showDialog({
-          title:
-            'Oops! Error from server while emergency vehicle assignment request',
-          description: err.message,
-          buttontext: 'Ok! Let me check',
-          visible: true,
-        })
-      );
-    }
-  };
+export const assignRescueTeam = (tile_index, rescue_team) => (dispatch) => {
+  try {
+    dispatch({
+      type: ASSIGN_RESCUE_TEAM,
+      payload: { tile_index: tile_index, rescue_team: rescue_team },
+    });
+  } catch (err) {
+    console.log(err.message);
+    dispatch(
+      showDialog({
+        title:
+          'Oops! Error from server while emergency vehicle assignment request',
+        description: err.message,
+        buttontext: 'Ok! Let me check',
+        visible: true,
+      })
+    );
+  }
+};
+export const assignPatternType = (tile_index, pattern_type) => (dispatch) => {
+  try {
+    dispatch({
+      type: ASSIGN_PATTERN_TYPE,
+      payload: { tile_index: tile_index, pattern_type: pattern_type },
+    });
+  } catch (err) {
+    console.log(err.message);
+    dispatch(
+      showDialog({
+        title: 'Oops! Error from server while assignment of pattern ',
+        description: err.message,
+        buttontext: 'Ok! Let me check',
+        visible: true,
+      })
+    );
+  }
+};
 
 export const addSearchPattern = (data) => (dispatch) => {
   try {

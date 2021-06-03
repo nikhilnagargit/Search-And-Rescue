@@ -6,6 +6,7 @@ import {
   getSearchArea,
   assignRescueTeam,
   addSearchPattern,
+  assignPatternType,
 } from '../../../actions/area';
 import { setLoader, removeLoader } from '../../../actions/general';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,12 +18,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { Button } from '@material-ui/core';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import drone from '../../../images/drone.png';
@@ -30,6 +28,7 @@ import helicopter from '../../../images/helicopter.png';
 import fighter from '../../../images/fighter.png';
 import axios from 'axios';
 import Loader from '../../layout/Loader/Loader';
+import { Link } from 'react-router-dom';
 const mapStateToProps = (state) => {
   return {
     areaData: state.searchAreaReducer,
@@ -49,8 +48,12 @@ const useStyles = makeStyles({
     margin: '0rem',
     minWidth: 110,
   },
-  selectEmpty: {
-    marginTop: '0.4rem',
+
+  nativeInput: {
+    fontSize: '0.7rem',
+  },
+  headInput: {
+    fontSize: '0.8rem',
   },
 });
 
@@ -59,6 +62,9 @@ const SearchPattern = (props) => {
 
   const handleChange = (event, index) => {
     props.assignRescueTeam(index, event.target.value);
+  };
+  const handleChangePatternType = (event, index) => {
+    props.assignPatternType(index, event.target.value);
   };
 
   const fetchPatterns = () => {
@@ -127,9 +133,7 @@ const SearchPattern = (props) => {
               </Badge>
             </Grid>
           </Grid>
-          <Grid item container xs={6} alignItems='center'>
-            abcd
-          </Grid>
+          <Grid item container xs={6} alignItems='center'></Grid>
         </Grid>
         <div className='middle'>
           <SearchMap areaData={props.areaData} />
@@ -146,21 +150,31 @@ const SearchPattern = (props) => {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell align='center'>SubArea Index</TableCell>
-
-                    <TableCell align='center'>Team</TableCell>
+                    <TableCell align='left' className={classes.headInput}>
+                      Index
+                    </TableCell>
+                    <TableCell className={classes.headInput} align='left'>
+                      Search Team
+                    </TableCell>
+                    <TableCell className={classes.headInput} align='left'>
+                      Search Pattern
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {props.areaData.filteredGrid.features.map((row, num) => {
                     return (
                       <TableRow hover key={num + '0'}>
-                        <TableCell align='center' key={num + '1'}>
+                        <TableCell
+                          align='left'
+                          key={num + '1'}
+                          className={classes.nativeInput}
+                        >
                           {num}
                         </TableCell>
-                        <TableCell align='center' key={num + '2'}>
+                        <TableCell align='left' key={num + '2'}>
                           <FormControl
-                            align='center'
+                            align='left'
                             className={classes.formControl}
                             key={num + '3'}
                           >
@@ -169,19 +183,70 @@ const SearchPattern = (props) => {
                               onChange={(event) => {
                                 handleChange(event, num);
                               }}
-                              className={classes.selectEmpty}
-                              inputProps={{ 'aria-label': 'select team' }}
+                              className={classes.nativeInput}
+                              inputProps={{
+                                'aria-label': 'select team',
+                              }}
                             >
-                              <MenuItem value=''>
+                              <MenuItem
+                                value=''
+                                className={classes.nativeInput}
+                              >
                                 <em>None</em>
                               </MenuItem>
-                              <MenuItem value={'helicopterA'}>
+                              <MenuItem
+                                value={'helicopterA'}
+                                className={classes.nativeInput}
+                              >
                                 Helecopter A
                               </MenuItem>
-                              <MenuItem value={'helicopterB'}>
+                              <MenuItem
+                                value={'helicopterB'}
+                                className={classes.nativeInput}
+                              >
                                 Helecopter B
                               </MenuItem>
-                              <MenuItem value={'drone'}>Drone</MenuItem>
+                              <MenuItem
+                                value={'drone'}
+                                className={classes.nativeInput}
+                              >
+                                Drone
+                              </MenuItem>
+                            </Select>
+                          </FormControl>
+                        </TableCell>
+                        <TableCell align='center' key={num + '3'}>
+                          <FormControl
+                            align='center'
+                            className={classes.formControl}
+                            key={num + '3'}
+                          >
+                            <Select
+                              value={row.pattern_type ? row.pattern_type : ''}
+                              onChange={(event) => {
+                                handleChangePatternType(event, num);
+                              }}
+                              className={classes.nativeInput}
+                              inputProps={{ 'aria-label': 'Pattern Type' }}
+                            >
+                              <MenuItem
+                                value=''
+                                className={classes.nativeInput}
+                              >
+                                <em>None</em>
+                              </MenuItem>
+                              <MenuItem
+                                value={'expanded_square'}
+                                className={classes.nativeInput}
+                              >
+                                Expanded Square
+                              </MenuItem>
+                              <MenuItem
+                                value={'creepy_line'}
+                                className={classes.nativeInput}
+                              >
+                                Creepy Line
+                              </MenuItem>
                             </Select>
                           </FormControl>
                         </TableCell>
@@ -203,9 +268,11 @@ const SearchPattern = (props) => {
             >
               Fetch Pattern
             </Button>
-            <Button variant='contained' color='secondary' size='small'>
-              Start Patterns
-            </Button>
+            <Link to='./results'>
+              <Button variant='contained' color='secondary' size='small'>
+                Proceed To Results
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -221,4 +288,5 @@ export default connect(mapStateToProps, {
   addSearchPattern,
   setLoader,
   removeLoader,
+  assignPatternType,
 })(SearchPattern);
