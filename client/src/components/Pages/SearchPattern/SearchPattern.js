@@ -42,11 +42,11 @@ const useStyles = makeStyles({
   },
   container: {
     maxHeight: 530,
+    maxWidth: '100%',
   },
 
   formControl: {
-    margin: '0rem',
-    minWidth: 110,
+    minWidth: 70,
   },
 
   nativeInput: {
@@ -54,6 +54,8 @@ const useStyles = makeStyles({
   },
   headInput: {
     fontSize: '0.8rem',
+    backgroundColor: 'black',
+    color: 'white',
   },
 });
 

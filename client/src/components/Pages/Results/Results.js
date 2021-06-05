@@ -9,54 +9,99 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles({
+  main: {
+    margin: '1rem',
+  },
   table: {
     minWidth: 650,
   },
+  head: {
+    backgroundColor: 'black',
+    color: 'white',
+  },
+  container: {
+    maxWidth: '100%',
+    height: '50%',
+  },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+const mapStateToProps = (state) => {
+  return {
+    searchAreaProperties:
+      state.searchAreaReducer.geojson.features[0].properties,
+    subAreas: state.searchAreaReducer.filteredGrid.features,
+  };
+};
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-export default function BasicTable() {
+function Results(props) {
   const classes = useStyles();
 
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label='simple table'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align='right'>Calories</TableCell>
-            <TableCell align='right'>Fat&nbsp;(g)</TableCell>
-            <TableCell align='right'>Carbs&nbsp;(g)</TableCell>
-            <TableCell align='right'>Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component='th' scope='row'>
-                {row.name}
+  return props.subAreas.length === 0 ||
+    props.subAreas === undefined ||
+    props.subAreas[0].rescue_team === undefined ? (
+    <h2>Oops, nothing here, first select a missing aircraft</h2>
+  ) : (
+    <div className={classes.main}>
+      <TableContainer component={Paper} className={classes.container}>
+        <Table
+          stickyHeader
+          className={classes.table}
+          aria-label='simple table'
+          size='small'
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.head}>Index</TableCell>
+              <TableCell className={classes.head} align='left'>
+                Search Pattern
               </TableCell>
-              <TableCell align='right'>{row.calories}</TableCell>
-              <TableCell align='right'>{row.fat}</TableCell>
-              <TableCell align='right'>{row.carbs}</TableCell>
-              <TableCell align='right'>{row.protein}</TableCell>
+              <TableCell className={classes.head} align='left'>
+                Rescue Team
+              </TableCell>
+              <TableCell className={classes.head} align='left'>
+                Path Length
+              </TableCell>
+              <TableCell className={classes.head} align='left'>
+                Search Time&nbsp;(hours)
+              </TableCell>
+              <TableCell className={classes.head} align='left'>
+                Field of View&nbsp;(km)
+              </TableCell>
+              <TableCell className={classes.head} align='left'>
+                Speed &nbsp;(km/hr)
+              </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {props.subAreas.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component='th' scope='row'>
+                  {index}
+                </TableCell>
+                <TableCell align='left'>{row.pattern_type}</TableCell>
+                <TableCell align='left'>{row.rescue_team}</TableCell>
+                <TableCell align='left'>
+                  {row.properties.distance.toFixed(4)}
+                </TableCell>
+                <TableCell align='left'>
+                  {row.properties.time.toFixed(4)}
+                </TableCell>
+                <TableCell align='left'>
+                  {row.properties.fieldofview.toFixed(4)}
+                </TableCell>
+                <TableCell align='left'>
+                  {row.properties.speed.toFixed(4)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }
+
+export default connect(mapStateToProps, null)(Results);

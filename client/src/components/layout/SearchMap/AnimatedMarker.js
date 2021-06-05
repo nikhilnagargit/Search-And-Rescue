@@ -21,7 +21,7 @@ const AnimatedMarker = (props) => {
     <LayerGroup>
       {props.filteredGrid.features.map((item, index) => {
         if (item.rescue_team) {
-          if (item.spiral === undefined) {
+          if (item.pattern === undefined) {
             return (
               <Marker
                 key={index}
@@ -46,7 +46,7 @@ const AnimatedMarker = (props) => {
             );
           } else {
             var line = L.polyline(
-              item.spiral.coordinates[0].map((item) => {
+              item.pattern.coordinates[0].map((item) => {
                 return [item[1], item[0]];
               }),
               {
