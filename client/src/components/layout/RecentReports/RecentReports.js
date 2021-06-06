@@ -1,5 +1,5 @@
 import Card from '@material-ui/core/Card';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux';
@@ -20,6 +20,8 @@ const mapStateToProps = (state) => {
 // main component of this file
 
 const RecentReports = ({ reportsArray, deleteReport, setCurrentAircraft }) => {
+  const [showAll, setShowAll] = useState(false);
+
   const customDispatch = useDispatch();
   let data = [];
   if (reportsArray.length > 3) {
@@ -33,15 +35,65 @@ const RecentReports = ({ reportsArray, deleteReport, setCurrentAircraft }) => {
     customDispatch(getReports());
   }, [customDispatch]);
 
-  return (
+  return showAll ? (
     <div className='recent-container'>
       <div className='heading'>
         <h4>Recent Missing Flights</h4>
         {/* this link is from material , not from router */}
-        <div className='show_all'>
-          {' '}
-          <Link to='#!'>Show All</Link>
-        </div>
+
+        <Link
+          to='!#'
+          className='show_all'
+          onClick={() => {
+            setShowAll(false);
+          }}
+        >
+          Show Less
+        </Link>
+      </div>
+      <div className='cards-section'>
+        {reportsArray.map((item, i) => (
+          <Card className='card' key={item._id}>
+            <p>{item.title}</p>
+            <div className='bottom'>
+              <Link to='/search-area'>
+                <IconButton
+                  onClick={() => {
+                    setCurrentAircraft(item);
+                  }}
+                  aria-label='rescue'
+                >
+                  <i className='fas fa-paper-plane fa-sm'></i>
+                </IconButton>
+              </Link>
+              <IconButton
+                aria-label='delete'
+                onClick={(e) => {
+                  deleteReport(item._id);
+                }}
+              >
+                <i className='fas fa-trash fa-sm'></i>
+              </IconButton>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <div className='recent-container'>
+      <div className='heading'>
+        <h4>Recent Missing Flights</h4>
+        {/* this link is from material , not from router */}
+
+        <Link
+          to='!#'
+          className='show_all'
+          onClick={() => {
+            setShowAll(true);
+          }}
+        >
+          Show All
+        </Link>
       </div>
       <div className='cards-section'>
         {data.map((item, i) => (

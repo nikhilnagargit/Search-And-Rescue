@@ -16,4 +16,10 @@ app.use('/api/searchPattern', require('./routes/api/searchPattern'));
 app.use('/api/rescueTeam', require('./routes/api/rescueTeam'));
 
 const PORT = process.env.PORT || 5000;
+
+// just for production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

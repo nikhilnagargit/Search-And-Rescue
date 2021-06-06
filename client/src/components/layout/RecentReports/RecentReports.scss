@@ -8,6 +8,9 @@
     padding: 0.5rem;
     display: flex;
     justify-content: space-between;
+    .show_aLl {
+      cursor: pointer;
+    }
   }
   .cards-section {
     display: flex;
@@ -19,8 +22,8 @@
       justify-content: space-between;
       flex-basis: 100%;
       max-width: 6rem;
-      margin: 1rem;
-      padding: 0.4rem;
+      margin: 0.5rem;
+      padding: 0.2rem;
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
       a {
@@ -35,7 +38,7 @@
         justify-content: space-around;
         .fa-paper-plane {
           color: rgb(57, 10, 118);
-          font-size: smaller;
+          font-size: small;
         }
         .fa-trash {
           color: rgb(201, 19, 80);
