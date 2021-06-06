@@ -22,7 +22,7 @@ export const getRoads = () => async (dispatch) => {
     // convert radius in meters
     const radius = store.getState().generalReducer.buffer_distance * 1000;
 
-    const roads_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(way["highway"](around:${radius},${crash_point_string});relation["highway"](around:${radius},${crash_point_string}););out body;>;out skel qt;`;
+    const roads_query = `https://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(way["highway"](around:${radius},${crash_point_string});relation["highway"](around:${radius},${crash_point_string}););out body;>;out skel qt;`;
 
     const response = await axios.get(roads_query);
     let data = response.data;

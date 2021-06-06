@@ -20,8 +20,8 @@ export const getHelpPoints = () => async (dispatch) => {
 
     const crash_point_string = `${crash_point[0]},${crash_point[1]}`;
 
-    const hospital_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node[amenity=hospital](around:${radius},${crash_point_string}););out body;`;
-    const roads_query = `http://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node["highway"](around:${radius},${crash_point_string});way["highway"](around:${radius},${crash_point_string});relation["highway"](around:${radius},${crash_point_string}););out body;>;out skel qt;`;
+    const hospital_query = `https://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node[amenity=hospital](around:${radius},${crash_point_string}););out body;`;
+    const roads_query = `https://overpass-api.de/api/interpreter?data=[out:json][timeout:50];(node["highway"](around:${radius},${crash_point_string});way["highway"](around:${radius},${crash_point_string});relation["highway"](around:${radius},${crash_point_string}););out body;>;out skel qt;`;
 
     const response = await axios.get(hospital_query);
     let data = response.data;
