@@ -71,11 +71,12 @@ const SearchMap = (props) => {
 
         <LayersControl.Overlay name='Grid' checked>
           <LayerGroup>
-            {props.areaData.filteredGrid.features.map((item) => {
+            {props.areaData.filteredGrid.features.map((item, index) => {
               return (
                 <GeoJSON
                   data={item}
                   style={{ weight: 0.6, fillOpacity: 0.1 }}
+                  key={index}
                 />
               );
             })}
