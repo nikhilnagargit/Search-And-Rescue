@@ -8,12 +8,12 @@ exports.calcDistance = function (altitude, velocity) {
 
 exports.creepyLineMotion = function (poly, len) {
   let shortLen = len, list = [];
-  let point = turf.point(poly[0][1]);
+  let point = turf.destination(poly[0][1], shortLen, 90);
   let grid = turf.polygon(poly);
   let from = turf.point(poly[0][1]);
   let to = turf.point(poly[0][2]);
 
-  let longLen = turf.distance(from, to);
+  let longLen = turf.distance(from, to) - 2 * shortLen;
 
   let dest = point;
   while (turf.booleanPointInPolygon(dest.geometry.coordinates, grid)) {

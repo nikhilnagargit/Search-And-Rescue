@@ -16,13 +16,15 @@ router.post('/', async (req, res) => {
             rescueTeam = teams[0];
         else if (feature.rescue_team == 'helicopterB')
             rescueTeam = teams[1];
-        else
+        else if (feature.rescue_team == 'drone')
             rescueTeam = teams[2];
+        else continue;
 
         if (feature.pattern_type == 'expanded_square')
             feature.pattern = spiralMotion(feature.geometry.coordinates, rescueTeam.fieldofview);
-        else
+        else if (feature.pattern_type == 'creepy_line')
             feature.pattern = creepyLineMotion(feature.geometry.coordinates, rescueTeam.fieldofview);
+        else continue;
 
         feature.properties = addProperties(rescueTeam, feature.pattern);
     }
