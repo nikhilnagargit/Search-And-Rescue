@@ -41,15 +41,14 @@ const RecentReports = ({ reportsArray, deleteReport, setCurrentAircraft }) => {
         <h4>Recent Missing Flights</h4>
         {/* this link is from material , not from router */}
 
-        <Link
-          to='!#'
+        <div
           className='show_all'
           onClick={() => {
             setShowAll(false);
           }}
         >
           Show Less
-        </Link>
+        </div>
       </div>
       <div className='cards-section'>
         {reportsArray.map((item, i) => (
@@ -85,15 +84,14 @@ const RecentReports = ({ reportsArray, deleteReport, setCurrentAircraft }) => {
         <h4>Recent Missing Flights</h4>
         {/* this link is from material , not from router */}
 
-        <Link
-          to='!#'
+        <div
           className='show_all'
           onClick={() => {
             setShowAll(true);
           }}
         >
           Show All
-        </Link>
+        </div>
       </div>
       <div className='cards-section'>
         {data.map((item, i) => (
