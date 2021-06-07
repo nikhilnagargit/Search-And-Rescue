@@ -10,7 +10,7 @@ const About = () => {
       <h2>Search And Rescue operations for missing Aircraft</h2>
       <div className='aboutinside'>
         <div className='team'>
-          <ul>
+          {/* <ul>
             <li>
               <img src={user} alt='' />
               <span>Nikhil Nagar</span>
@@ -27,7 +27,7 @@ const About = () => {
               <img src={user} alt='' />
               <span>Karamveer Singh Rathore</span>
             </li>
-          </ul>
+          </ul> */}
           <img className='jecrc' src={jecrc} alt=''></img>
         </div>
         <img className='amico' src={amico} alt=''></img>
