@@ -7,6 +7,7 @@
 
 ## Check it out online - 
 https://afternoon-beyond-34123.herokuapp.com/
+
 Application to perform search and rescue operation simulations for missing aircrafts.
 
 ## Description
