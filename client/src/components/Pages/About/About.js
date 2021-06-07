@@ -14,7 +14,7 @@ const About = () => {
             <li>
               <img src={user} alt='' />
 
-              <a>https://github.com/nikhilnagargit/Search-And-Rescue</a>
+              <span>https://github.com/nikhilnagargit/Search-And-Rescue</span>
             </li>
             {/* <li>
               <img src={user} alt='' />
