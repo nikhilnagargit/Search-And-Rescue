@@ -10,12 +10,13 @@ const About = () => {
       <h2>Search And Rescue operations for missing Aircraft</h2>
       <div className='aboutinside'>
         <div className='team'>
-          {/* <ul>
+          <ul>
             <li>
               <img src={user} alt='' />
-              <span>Nikhil Nagar</span>
+
+              <a>https://github.com/nikhilnagargit/Search-And-Rescue</a>
             </li>
-            <li>
+            {/* <li>
               <img src={user} alt='' />
               <span>Laxit Yadav</span>
             </li>
@@ -26,8 +27,8 @@ const About = () => {
             <li>
               <img src={user} alt='' />
               <span>Karamveer Singh Rathore</span>
-            </li>
-          </ul> */}
+            </li> */}
+          </ul>
           <img className='jecrc' src={jecrc} alt=''></img>
         </div>
         <img className='amico' src={amico} alt=''></img>
