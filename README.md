@@ -7,6 +7,8 @@
 
 ## Check it out online - 
 https://afternoon-beyond-34123.herokuapp.com/
+## Check out research paper-
+https://www.linkedin.com/in/nikhil-nagar-81b223183/details/featured/1635543194998/single-media-viewer?type=DOCUMENT&profileId=ACoAACtIAtcBIpK5i6JJgQBhzvFMYiBbBr4x-ug&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_featured_details%3BL39AYOY8TwGpPPFZLWWeIA%3D%3D
 
 Application to perform search and rescue operation simulations for missing aircrafts.
 ![Screenshot (736)](https://user-images.githubusercontent.com/44896376/120094701-99a8a980-c13f-11eb-8909-ba7ec4a53b5f.png)
