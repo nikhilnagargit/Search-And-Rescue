@@ -9,7 +9,7 @@
 https://afternoon-beyond-34123.herokuapp.com/
 
 Application to perform search and rescue operation simulations for missing aircrafts.
-
+![Screenshot (736)](https://user-images.githubusercontent.com/44896376/120094701-99a8a980-c13f-11eb-8909-ba7ec4a53b5f.png)
 ## Description
 
 Search and Rescue (SAR) is an operation to find lost Aircrafts. SAR operations aim at finding missing objects with minimum time in a determined area.
